@@ -1,0 +1,15 @@
+<label class="checkbox selection-control-color" [color]="color()" componentName="selection-control"
+    [attr.disabled]="disabled()">
+
+    <!-- Input -->
+    <input #input type="checkbox" name="checkbox" [disabled]="disabled()" [checked]="checked"
+        (change)="onClick(input.checked)">
+
+    <!-- Checkmark -->
+    <span class="checkmark selection-control-background" [color]="color()" componentName="checkbox"></span>
+
+    <!-- Text -->
+    <span class="selection-control-text">
+        <ng-content></ng-content>
+    </span>
+</label>

@@ -1,0 +1,105 @@
+.radio-button,
+.checkbox {
+    display: inline-flex;
+    cursor: pointer;
+    align-items: center;
+    user-select: none;
+
+    &:hover {
+        input:not(:checked):not(:disabled):not(:focus) {
+
+            &~.checkmark {
+                border-color: var(--selection-control-hover-color);
+            }
+
+            &~.selection-control-background::before {
+                background-color: var(--selection-control-hover-background-color);
+            }
+        }
+    }
+
+    &:active {
+        input:not(:disabled) {
+            &~.selection-control-background::before {
+                background-color: var(--selection-control-selected-active-color);
+            }
+
+            &:not(:checked):not(:focus) {
+                &~.selection-control-background::before {
+                    background-color: var(--selection-control-unselected-active-color);
+                }
+            }
+        }
+    }
+
+
+    input {
+        appearance: none;
+        margin: 0;
+        padding: 0;
+
+        &:disabled~.checkmark {
+            border-color: var(--selection-control-disabled-color);
+
+            &::after {
+                background-color: transparent;
+            }
+        }
+
+
+        &:not(:disabled) {
+            &:checked:focus~.checkmark {
+                &::before {
+                    background-color: var(--selection-control-selected-focus-color);
+                }
+            }
+
+            &:not(:checked):focus~.checkmark {
+                border-color: var(--selection-control-background-focus-color);
+
+                &::before {
+                    background-color: var(--selection-control-unselected-focus-color);
+                }
+            }
+        }
+    }
+
+    &:not([disabled=true]) {
+        .selection-control-text {
+            color: var(--selection-control-text-color);
+        }
+    }
+
+    &[disabled=true] {
+        cursor: default;
+        color: var(--selection-control-disabled-color);
+    }
+}
+
+
+
+.checkmark {
+    border: 2px solid;
+    border-color: var(--selection-control-unselected-color);
+    transition: border-color 120ms;
+    position: relative;
+    margin-right: 12px;
+
+    &:after {
+        content: "";
+        position: absolute;
+    }
+}
+
+
+
+.selection-control-background::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border-radius: 50%;
+    pointer-events: none;
+}

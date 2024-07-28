@@ -5,6 +5,11 @@
   "projects": {
     "ngx-toolkit": {
       "projectType": "library",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "projects/ngx-toolkit",
       "sourceRoot": "projects/ngx-toolkit/src",
       "prefix": "",

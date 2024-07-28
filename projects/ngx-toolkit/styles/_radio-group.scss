@@ -1,0 +1,17 @@
+.vertical-layout {
+    display: flex;
+    flex-direction: column;
+
+    & radio-button:not(:last-child) .radio-button {
+        margin-bottom: 20px;
+    }
+}
+
+.horizontal-layout {
+    display: flex;
+    flex-direction: row;
+
+    & radio-button:not(:last-child) .radio-button {
+        margin-right: 20px;
+    }
+}

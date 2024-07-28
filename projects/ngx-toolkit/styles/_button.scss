@@ -1,0 +1,51 @@
+.button {
+    border: none;
+    outline: none;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 9999px;
+    min-width: 64px;
+    height: 35px;
+    padding: 0 20px;
+    position: relative;
+    color: var(--button-text-color);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    line-height: inherit;
+    user-select: none;
+    overflow: visible;
+    vertical-align: middle;
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 9999px;
+    }
+
+    &:hover:not([disabled]):before {
+        background-color: var(--button-hover-color);
+    }
+
+    &:active:not([disabled])::before {
+        background-color: var(--button-active-color);
+    }
+
+    &:focus-visible:not([disabled]):not(:active):before {
+        background-color: var(--button-focus-color);
+    }
+
+    &[disabled] {
+        background: var(--button-disabled-background-color);
+        color: var(--button-disabled-text-color);
+        cursor: default;
+        pointer-events: none;
+    }
+}

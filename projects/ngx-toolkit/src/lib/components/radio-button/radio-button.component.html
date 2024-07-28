@@ -1,0 +1,17 @@
+<!-- Label -->
+<label class="radio-button" [attr.disabled]="disabled() || radioGroup.disabled" [color]="color() || radioGroup.color()"
+    componentName="selection-control">
+
+    <!-- Input -->
+    <input type="radio" [disabled]="disabled() || radioGroup.disabled" [checked]="checked" (change)="onChange()"
+        [name]="radioGroup.name">
+
+    <!-- Checkmark -->
+    <span class="checkmark selection-control-background" [color]="color() || radioGroup.color()" componentName="radio">
+    </span>
+
+    <!-- Text -->
+    <span class="selection-control-text">
+        <ng-content></ng-content>
+    </span>
+</label>

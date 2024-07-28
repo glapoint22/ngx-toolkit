@@ -1,0 +1,37 @@
+:host {
+    display: block;
+}
+
+.checkbox {
+    .checkmark {
+        width: 18px;
+        height: 18px;
+    }
+
+    input {
+        ~.checkmark {
+            background-color: transparent;
+            transition: background-color 120ms;
+        }
+
+        &:not(:disabled):checked~.checkmark {
+            background-color: var(--checkbox-selected-color);
+            border-color: transparent;
+
+            &:after {
+                border-color: var(--checkbox-selected-checkmark-color);
+            }
+        }
+    }
+
+    .checkmark::after {
+        left: 5px;
+        top: 0px;
+        width: 3px;
+        height: 10px;
+        border: solid;
+        border-color: transparent;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+    }
+}

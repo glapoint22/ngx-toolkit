@@ -1,0 +1,30 @@
+.icon-button {
+    background: none;
+    min-width: unset;
+    border-radius: 50%;
+    padding: 0;
+    height: 35px;
+    width: 35px;
+    font-size: 13px;
+    color: var(--icon-button-color);
+    
+
+    &:hover:not([disabled]):before {
+        background-color: var(--icon-button-hover-color);
+    }
+
+    &:active:not([disabled]):before {
+        background-color: var(--icon-button-active-color);
+    }
+
+    &:focus-visible:not([disabled]):not(:active):before {
+        background-color: var(--icon-button-focus-color);
+    }
+
+    &[disabled] {
+        background: none;
+        color: var(--icon-button-disabled-color);
+    }
+
+    --icon-color: none;
+}
