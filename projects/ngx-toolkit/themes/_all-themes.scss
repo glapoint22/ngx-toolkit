@@ -1,0 +1,40 @@
+@use './app-theme' as app;
+@use './button-theme' as button;
+@use './calendar-theme' as calendar;
+@use './checkbox-theme' as checkbox;
+@use './selection-control-theme' as selection-control;
+@use './dialog-theme' as dialog;
+@use './divider-theme' as divider;
+@use './dropdown-theme' as dropdown;
+@use './flat-button-theme' as flat-button;
+@use './form-field-theme' as form-field;
+@use './icon-button-theme' as icon-button;
+@use './icon-theme' as icon;
+@use './input-theme' as input;
+@use './menu-bar-theme' as menu-bar;
+@use './menu-theme' as menu;
+@use './radio-button-theme' as radio-button;
+@use './raised-button-theme' as raised-button;
+@use './stroked-button-theme' as stroked-button;
+
+
+@mixin themes($theme) {
+    @include app.theme($theme);
+    @include button.theme($theme);
+    @include calendar.theme($theme);
+    @include checkbox.theme($theme);
+    @include selection-control.theme($theme);
+    @include dialog.theme($theme);
+    @include divider.theme($theme);
+    @include dropdown.theme($theme);
+    @include flat-button.theme($theme);
+    @include form-field.theme($theme);
+    @include icon-button.theme($theme);
+    @include icon.theme($theme);
+    @include input.theme($theme);
+    @include menu-bar.theme($theme);
+    @include menu.theme($theme);
+    @include radio-button.theme($theme);
+    @include raised-button.theme($theme);
+    @include stroked-button.theme($theme);
+}

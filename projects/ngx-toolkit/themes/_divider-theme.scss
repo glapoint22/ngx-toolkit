@@ -1,0 +1,14 @@
+@use 'sass:map';
+@use './utility';
+
+
+@mixin theme($theme) {
+    $palettes: utility.get-palettes($theme);
+    $primary-palette: map.get($palettes, primary);
+    $theme-type: utility.get-theme-type($theme);
+    $theme-name: utility.get-theme-name($theme);
+
+    .#{$theme-name} {
+        --divider-color: #{utility.get-color($primary-palette, $theme-type, (color-keys: (light: 80, dark: 30), color-map: neutral-variant))};
+    }
+}

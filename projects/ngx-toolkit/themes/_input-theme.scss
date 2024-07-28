@@ -1,0 +1,9 @@
+@use './utility';
+
+@mixin theme($theme) {
+    @include utility.theme-variables($theme, 'input', (
+        (variable-name: 'input-text-color', color-keys: (light: 10, dark: 90), color-map: 'neutral'),
+        (variable-name: 'input-disabled-text-color', color-keys: (light: 10, dark: 90), color-map: 'neutral', opacity: 0.38),
+        (variable-name: 'input-caret-color', color-keys: (light: 40, dark: 80))
+    ));
+}

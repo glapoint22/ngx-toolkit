@@ -1,0 +1,16 @@
+@use './utility';
+
+@mixin theme($theme) {
+    @include utility.theme-variables($theme, 'selection-control', (
+        (variable-name: 'selection-control-unselected-color', color-keys: (light: 30, dark: 80), color-map: neutral-variant),
+        (variable-name: 'selection-control-hover-color', color-keys: (light: 10, dark: 90), color-map: neutral),
+        (variable-name: 'selection-control-disabled-color', color-keys: (light: 10, dark: 90), color-map: neutral, opacity: 0.38),
+        (variable-name: 'selection-control-text-color', color-keys: (light: 10, dark: 90), color-map: neutral),
+        (variable-name: 'selection-control-unselected-focus-color', color-keys: (light: 10, dark: 90), color-map: neutral, opacity: 0.12),
+        (variable-name: 'selection-control-selected-focus-color', color-keys: (light: 40, dark: 80), opacity: 0.12),
+        (variable-name: 'selection-control-hover-background-color', color-keys: (light: 10, dark: 90), color-map: neutral, opacity: 0.08),
+        (variable-name: 'selection-control-background-focus-color', color-keys: (light: 10, dark: 90), color-map: neutral),
+        (variable-name: 'selection-control-unselected-active-color', color-keys: (light: 10, dark: 90), color-map: neutral, opacity: 0.2),
+        (variable-name: 'selection-control-selected-active-color', color-keys: (light: 40, dark: 80), opacity: 0.2)
+    ));
+}

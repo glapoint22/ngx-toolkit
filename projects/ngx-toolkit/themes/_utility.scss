@@ -1,0 +1,55 @@
+@use 'sass:map';
+
+@function get-color($palette, $theme-type, $config) {
+    $color-key: map.get($config, 'color-keys', $theme-type);
+    $opacity: if(map.has-key($config, 'opacity'), map.get($config, 'opacity'), null);
+    $color-map: if(map.has-key($config, 'color-map'), map.get($palette, map.get($config, 'color-map')), $palette);
+    $color: map.get($color-map, $color-key);
+
+    @return if($opacity, rgba($color, $opacity), $color);
+}
+
+
+
+
+@function get-theme-name($theme) {
+    @return map.get($theme, theme-name);
+}
+
+
+
+
+@function get-palettes($theme) {
+    @return map.get($theme, palettes);
+}
+
+
+
+
+@function get-theme-type($theme) {
+    @return map.get($theme, theme-type);
+}
+
+
+
+
+@mixin theme-variables($theme, $component, $configs) {
+    $palettes: get-palettes($theme);
+    $theme-type: get-theme-type($theme);
+
+    .#{get-theme-name($theme)} {
+        $palette-keys: map.keys($palettes);
+
+        @each $palette-key in $palette-keys {
+            $palette: map.get($palettes, $palette-key);
+
+            .#{$palette-key}-#{$component}-color {
+                @each $config in $configs {
+                    $variable-name: map.get($config, 'variable-name');
+
+                    --#{$variable-name}: #{get-color($palette, $theme-type, $config)};
+                }
+            }
+        }
+    }
+}

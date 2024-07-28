@@ -1,0 +1,25 @@
+@use 'sass:map';
+@use './utility';
+
+
+@mixin theme($theme) {
+    $palettes: utility.get-palettes($theme);
+    $primary-palette: map.get($palettes, primary);
+    $theme-type: utility.get-theme-type($theme);
+    $theme-name: utility.get-theme-name($theme);
+
+    .#{$theme-name} {
+        --icon-button-color: #{utility.get-color($primary-palette, $theme-type, (color-keys: (light: 30, dark: 80), color-map: neutral-variant))};
+        --icon-button-hover-color: #{utility.get-color($primary-palette, $theme-type, (color-keys: (light: 10, dark: 90), color-map: neutral, opacity: 0.08))};
+        --icon-button-active-color: #{utility.get-color($primary-palette, $theme-type, (color-keys: (light: 10, dark: 90), color-map: neutral, opacity: 0.2))};
+        --icon-button-focus-color: #{utility.get-color($primary-palette, $theme-type, (color-keys: (light: 10, dark: 90), color-map: neutral, opacity: 0.12))};
+        --icon-button-disabled-color: #{utility.get-color($primary-palette, $theme-type, (color-keys: (light: 10, dark: 90), color-map: 'neutral', opacity: 0.38))};
+    }
+
+    @include utility.theme-variables($theme, 'icon-button', (
+        (variable-name: 'icon-button-hover-color', color-keys: (light: 30, dark: 80), color-map: neutral-variant, opacity: 0.08),
+        (variable-name: 'icon-button-active-color', color-keys: (light: 30, dark: 80), color-map: neutral-variant, opacity: 0.12),
+        (variable-name: 'icon-button-focus-color', color-keys: (light: 30, dark: 80), color-map: neutral-variant, opacity: 0.2),
+        (variable-name: 'icon-button-color', color-keys: (light: 40, dark: 80))
+    ));
+}

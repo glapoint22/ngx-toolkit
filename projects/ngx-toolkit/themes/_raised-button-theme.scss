@@ -1,0 +1,7 @@
+@use './utility';
+
+@mixin theme($theme) {
+    @include utility.theme-variables($theme, 'raised-button', (
+        (variable-name: 'raised-button-background-color', color-keys: (light: 99, dark: 10), color-map: neutral),
+    ));
+}

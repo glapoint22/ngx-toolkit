@@ -1,0 +1,12 @@
+@use './utility';
+
+@mixin theme($theme) {
+    @include utility.theme-variables($theme, 'form-field', (
+        (variable-name: 'form-field-border-color', color-keys: (light: 50, dark: 60), color-map: 'neutral-variant'),
+        (variable-name: 'form-field-selected-border-color', color-keys: (light: 40, dark: 80)),
+        (variable-name: 'form-field-label-color', color-keys: (light: 30, dark: 80), color-map: 'neutral-variant'),
+        (variable-name: 'form-field-selected-label-color', color-keys: (light: 40, dark: 80)),
+        (variable-name: 'form-field-disabled-border-color', color-keys: (light: 10, dark: 90), color-map: 'neutral', opacity: 0.12),
+        (variable-name: 'form-field-disabled-label-color', color-keys: (light: 10, dark: 90), color-map: 'neutral', opacity: 0.38)
+    ));
+}

@@ -1,0 +1,8 @@
+@use './utility';
+
+@mixin theme($theme) {
+    @include utility.theme-variables($theme, 'menu', (
+        (variable-name: 'menu-bar-item-background-color', color-keys: (light: 40, dark: 80), opacity: 0.08),
+        (variable-name: 'menu-bar-item-text-color', color-keys: (light: 10, dark: 90), color-map: neutral)
+    ));
+}

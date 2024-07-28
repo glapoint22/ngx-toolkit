@@ -1,0 +1,11 @@
+@use './utility';
+
+@mixin theme($theme) {
+    @include utility.theme-variables($theme, 'flat-button', (
+        (variable-name: 'flat-button-text-color', color-keys: (light: 100, dark: 20)),
+        (variable-name: 'flat-button-background-color', color-keys: (light: 40, dark: 80)),
+        (variable-name: 'flat-button-hover-color', color-keys: (light: 100, dark: 20), opacity: 0.08),
+        (variable-name: 'flat-button-active-color', color-keys: (light: 100, dark: 20), opacity: 0.12),
+        (variable-name: 'flat-button-focus-color', color-keys: (light: 100, dark: 20), opacity: 0.2)
+    ));
+}

@@ -1,0 +1,15 @@
+@use 'sass:map';
+@use './utility';
+
+
+@mixin theme($theme) {
+    $palettes: utility.get-palettes($theme);
+    $primary-palette: map.get($palettes, primary);
+    $theme-type: utility.get-theme-type($theme);
+    $theme-name: utility.get-theme-name($theme);
+
+    .#{$theme-name} {
+        --background-color: #{utility.get-color($primary-palette, $theme-type, (color-keys: (light: 99, dark: 10), color-map: neutral))};
+        --text-color: #{utility.get-color($primary-palette, $theme-type, (color-keys: (light: 10, dark: 90), color-map: neutral))};
+    }
+}

@@ -1,0 +1,18 @@
+@use './utility';
+
+@mixin theme($theme) {
+    @include utility.theme-variables($theme, 'calendar', (
+        (variable-name: 'calendar-text-color', color-keys: (light: 100, dark: 20)),
+        (variable-name: 'calendar-header-background-color', color-keys: (light: 40, dark: 80)),
+        (variable-name: 'calendar-header-arrow-hover-color', color-keys: (light: 90, dark: 30)),
+        (variable-name: 'calendar-header-arrow-active-color', color-keys: (light: 80, dark: 40)),
+        (variable-name: 'calendar-border-color', color-keys: (light: 70, dark: 30), color-map: neutral-variant),
+        (variable-name: 'calendar-background-color', color-keys: (light: 99, dark: 10), color-map: neutral),
+        (variable-name: 'calendar-header-today-hover-color', color-keys: (light: 30, dark: 70), opacity: 0.4),
+        (variable-name: 'calendar-header-today-active-color', color-keys: (light: 20, dark: 60), opacity: 0.4),
+        (variable-name: 'calendar-selected-item-color', color-keys: (light: 40, dark: 80)),
+        (variable-name: 'calendar-grid-item-hover-background-color', color-keys: (light: 10, dark: 90), color-map: neutral, opacity: 0.08),
+        (variable-name: 'calendar-grid-item-active-background-color', color-keys: (light: 10, dark: 90), color-map: neutral, opacity: 0.12),
+        (variable-name: 'calendar-grid-item-disabled-color', color-keys: (light: 10, dark: 90), color-map: neutral, opacity: 0.38)
+    ));
+}

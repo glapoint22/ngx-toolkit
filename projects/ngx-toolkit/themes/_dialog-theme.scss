@@ -1,0 +1,12 @@
+@use './utility';
+
+@mixin theme($theme) {
+    @include utility.theme-variables($theme, 'dialog', (
+        (variable-name: 'dialog-header-text-color', color-keys: (light: 100, dark: 20)),
+        (variable-name: 'dialog-content-text-color', color-keys: (light: 10, dark: 90), color-map: neutral),
+        (variable-name: 'dialog-header-background-color', color-keys: (light: 40, dark: 80)),
+        (variable-name: 'dialog-border-color', color-keys: (light: 70, dark: 30), color-map: neutral-variant),
+        (variable-name: 'dialog-background-color', color-keys: (light: 95, dark: 10), color-map: neutral),
+        (variable-name: 'dialog-footer-background-color', color-keys: (light: 80, dark: 20), color-map: neutral)
+    ));
+}

@@ -1,0 +1,8 @@
+@use './utility';
+
+@mixin theme($theme) {
+    @include utility.theme-variables($theme, 'radio', (
+        (variable-name: 'radio-selected-checkmark-color', color-keys: (light: 40, dark: 80)),
+        (variable-name: 'radio-selected-color', color-keys: (light: 40, dark: 80))
+    ));
+}

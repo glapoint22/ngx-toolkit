@@ -1,0 +1,13 @@
+@use './utility';
+
+@mixin theme($theme) {
+    @include utility.theme-variables($theme, 'menu', (
+        (variable-name: 'menu-border-color', color-keys: (light: 50, dark: 60), color-map: neutral-variant),
+        (variable-name: 'menu-background-color', color-keys: (light: 99, dark: 10), color-map: neutral),
+        (variable-name: 'menu-item-text-color', color-keys: (light: 10, dark: 90), color-map: neutral),
+        (variable-name: 'menu-item-hover-background-color', color-keys: (light: 40, dark: 80)),
+        (variable-name: 'menu-item-hover-text-color', color-keys: (light: 100, dark: 20)),
+        (variable-name: 'menu-item-disabled-text-color', color-keys: (light: 10, dark: 90), color-map: 'neutral', opacity: 0.38),
+        (variable-name: 'menu-item-disabled-icon-color', color-keys: (light: 10, dark: 90), color-map: 'neutral', opacity: 0.38)
+    ));
+}
