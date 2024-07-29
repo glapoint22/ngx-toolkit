@@ -4,6 +4,11 @@ export * from './lib/components/icon/icon.component';
 export * from './lib/components/radio-button/radio-button.component';
 export * from './lib/components/radio-group/radio-group.component';
 export * from './lib/components/divider/divider.component';
+export * from './lib/components/form-field/form-field.component';
+export * from './lib/components/form-field-label/form-field-label.component';
+export * from './lib/components/form-field-hint/form-field-hint.component';
+export * from './lib/components/dropdown/dropdown.component';
+export * from './lib/components/dropdown-item/dropdown-item.component';
 
 // Directives
 export * from './lib/directives/text-button/text-button.directive';

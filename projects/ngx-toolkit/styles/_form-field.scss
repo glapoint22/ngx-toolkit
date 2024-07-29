@@ -1,0 +1,21 @@
+.form-field {
+    .dropdown {
+        icon {
+            color: var(--form-field-dropdown-arrow-color)
+        }
+    }
+
+    &:focus {
+        .dropdown {
+            icon {
+                color: var(--form-field-dropdown-selected-arrow-color)
+            }
+        }
+    }
+}
+
+.form-field-disabled {
+    .icon-button {
+        color: var(--icon-button-disabled-color); 
+    }
+}

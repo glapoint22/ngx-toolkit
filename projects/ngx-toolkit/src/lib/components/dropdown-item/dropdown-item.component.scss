@@ -1,0 +1,19 @@
+.dropdown-item {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    user-select: none;
+    cursor: pointer;
+    color: var(--form-field-dropdown-text-color);
+
+    &:hover:not(.selected-dropdown-item) {
+        background: var(--form-field-dropdown-item-hover-color);
+    }
+}
+
+.selected-dropdown-item {
+    background: var(--form-field-dropdown-item-selected-color);
+    color: var(--form-field-dropdown-item-selected-text-color);
+}
