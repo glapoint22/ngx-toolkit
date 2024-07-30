@@ -1,0 +1,15 @@
+.input-field {
+    border: none;
+    outline: none;
+    background-color: inherit;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 15px;
+    color: var(--form-field-input-text-color);
+    caret-color: var(--form-field-caret-color);
+    z-index: 1;
+    width: 100%;
+
+    &:disabled {
+        color: var(--form-field-input-disabled-text-color);
+    }
+}

@@ -1,9 +1,9 @@
 <div [color]="color()" componentName="form-field">
 
-
     <div class="form-field" [tabindex]="!inputField() && !isDisabled()? 0 : -1"
         [ngClass]="{'form-field-selected': selected, 'form-field-disabled': isDisabled()}"
-        [style.cursor]="dropdown()? 'pointer': null" (focus)="onFocus()" (click)="onClick(); $event.stopPropagation()" (blur)="onBlur()">
+        [style.cursor]="dropdown()? 'pointer': null" (focus)="onFocus()" (click)="onClick(); $event.stopPropagation()"
+        (blur)="onBlur()">
 
         <!-- Notch -->
         <div class="notch-containers">

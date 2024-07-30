@@ -1,14 +1,14 @@
 .form-field {
     .dropdown {
-        icon {
-            color: var(--form-field-dropdown-arrow-color)
+        svg {
+            fill: var(--dropdown-arrow-color)
         }
     }
 
     &:focus {
         .dropdown {
-            icon {
-                color: var(--form-field-dropdown-selected-arrow-color)
+            svg {
+                fill: var(--dropdown-selected-arrow-color)
             }
         }
     }
@@ -17,5 +17,10 @@
 .form-field-disabled {
     .icon-button {
         color: var(--icon-button-disabled-color); 
+    }
+
+    &~form-field-hint {
+        color: var(--form-field-disabled-label-color);
+        user-select: none;
     }
 }

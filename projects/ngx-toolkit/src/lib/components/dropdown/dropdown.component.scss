@@ -11,13 +11,13 @@
 
 .dropdown-text {
     width: 100%;
-    color: var(--form-field-dropdown-text-color);
+    color: var(--dropdown-text-color);
 }
 
 .dropdown-list {
     width: 100%;
-    border: 1px solid var(--form-field-dropdown-list-border-color);
-    background: var(--form-field-dropdown-list-background-color);
+    border: 1px solid var(--dropdown-list-border-color);
+    background: var(--dropdown-list-background-color);
     max-height: 272px;
     overflow: auto;
     box-shadow: 3px 3px 7px 1px rgba(0, 0, 0, 0.14);
@@ -25,10 +25,10 @@
 
 .dropdown-disabled {
     .dropdown-text {
-        color: var(--form-field-dropdown-disabled-text-color);
+        color: var(--dropdown-disabled-text-color);
     }
 
-    icon {
-        color: var(--form-field-dropdown-disabled-arrow-color);
+    svg {
+        fill: var(--dropdown-disabled-arrow-color);
     }
 }

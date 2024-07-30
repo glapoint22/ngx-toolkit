@@ -6,14 +6,14 @@
     padding-left: 12px;
     user-select: none;
     cursor: pointer;
-    color: var(--form-field-dropdown-text-color);
+    color: var(--dropdown-text-color);
 
     &:hover:not(.selected-dropdown-item) {
-        background: var(--form-field-dropdown-item-hover-color);
+        background: var(--dropdown-item-hover-color);
     }
 }
 
 .selected-dropdown-item {
-    background: var(--form-field-dropdown-item-selected-color);
-    color: var(--form-field-dropdown-item-selected-text-color);
+    background: var(--dropdown-item-selected-color);
+    color: var(--dropdown-item-selected-text-color);
 }

@@ -1,5 +1,5 @@
-import { AfterViewInit, booleanAttribute, Component, contentChildren, inject, input, Renderer2, TemplateRef, viewChild, ViewContainerRef } from '@angular/core';
-import { ControlValueAccessor } from '@angular/forms';
+import { AfterViewInit, booleanAttribute, Component, contentChildren, forwardRef, inject, input, Renderer2, TemplateRef, viewChild, ViewContainerRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FormFieldComponent } from '../form-field/form-field.component';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -12,7 +12,12 @@ import { ColorDirective } from '../../directives/color/color.directive';
   standalone: true,
   imports: [CommonModule, ColorDirective],
   templateUrl: './dropdown.component.html',
-  styleUrl: './dropdown.component.scss'
+  styleUrl: './dropdown.component.scss',
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => DropdownComponent),
+    multi: true
+  }]
 })
 export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
   public disabled = input(false, { transform: booleanAttribute });
