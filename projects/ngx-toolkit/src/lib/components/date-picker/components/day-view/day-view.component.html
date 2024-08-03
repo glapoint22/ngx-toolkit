@@ -1,0 +1,22 @@
+<div class="calendar-day-grid">
+    <div>Su</div>
+    <div>Mo</div>
+    <div>Tu</div>
+    <div>We</div>
+    <div>Th</div>
+    <div>Fr</div>
+    <div>Sa</div>
+</div>
+
+
+<div class="calendar-grid">
+    @for (date of dates; track $index) {
+        <div class="calendar-grid-item" [ngClass]="{
+                    'disabled-calendar-grid-item': isCurrentDisplayedMonth(date), 
+                    'current-calendar-grid-item': isCurrentDay(date), 
+                    'selected-calendar-grid-item': isSelectedDate(date)
+                }" (click)="onCalendarDayClick(date)">
+            <div class="calendar-grid-item-text">{{date.getDate()}}</div>
+        </div>
+    }
+</div>

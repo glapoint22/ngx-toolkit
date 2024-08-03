@@ -1,0 +1,9 @@
+.calendar-grid {
+    grid-template-columns: repeat(4, 1fr);
+    height: 217.5px;
+}
+
+.calendar-grid-item::before {
+    width: 35px;
+    height: 35px;
+}

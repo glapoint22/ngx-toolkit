@@ -1,0 +1,20 @@
+<div class="year-view-button-container">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="20px" (click)="previousPage()">
+        <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" />
+    </svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="20px" (click)="nextPage()">
+        <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
+    </svg>
+</div>
+
+<div class="calendar-grid">
+    @for (year of years; track $index) {
+        <div class="calendar-grid-item" [ngClass]="{
+                'selected-calendar-grid-item': isSelectedYear(year),
+                'current-calendar-grid-item': isCurrentYear(year)
+            }" (click)="onYearClick(year)">
+            <div class="calendar-grid-item-text">{{year}}</div>
+        </div>
+    }
+</div>

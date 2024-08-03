@@ -1,0 +1,10 @@
+<div class="calendar-grid">
+    @for (month of months; track $index) {
+    <div class="calendar-grid-item" [ngClass]="{
+            'selected-calendar-grid-item': isSelectedMonth($index),
+            'current-calendar-grid-item': isCurrentMonth($index)
+        }" (click)="onMonthClick($index)">
+        <div class="calendar-grid-item-text">{{ month }}</div>
+    </div>
+    }
+</div>

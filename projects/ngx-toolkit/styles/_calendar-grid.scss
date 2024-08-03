@@ -1,0 +1,55 @@
+.calendar-grid {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.calendar-grid-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    cursor: pointer;
+    border-radius: 50%;
+
+    &::before {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+    }
+
+    &:hover:not(.selected-calendar-grid-item)::before {
+        background-color: var(--calendar-grid-item-hover-background-color);
+    }
+
+
+    &:active:not(.selected-calendar-grid-item)::before {
+        background-color: var(--calendar-grid-item-active-background-color);
+    }
+}
+
+.selected-calendar-grid-item {
+    color: var(--calendar-text-color);
+
+    &::before {
+        background-color: var(--calendar-selected-item-color);
+    }
+}
+
+.current-calendar-grid-item:not(.selected-calendar-grid-item) {
+    &::before {
+        border: 1px solid var(--calendar-selected-item-color);
+    }
+}
+
+.calendar-grid-item-text {
+    z-index: 1;
+    user-select: none;
+}
+
+
+.disabled-calendar-grid-item:not(.selected-calendar-grid-item) {
+    color: var(--calendar-grid-item-disabled-color);
+}

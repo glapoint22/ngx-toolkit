@@ -1,0 +1,21 @@
+.calendar-grid {
+    grid-template-columns: repeat(4, 1fr);
+    height: 200px;
+}
+
+.calendar-grid-item::before {
+    width: 40px;
+    height: 40px;
+}
+
+.year-view-button-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+svg {
+    fill: var(--calendar-header-background-color);
+    cursor: pointer;
+}

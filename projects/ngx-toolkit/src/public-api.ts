@@ -9,6 +9,7 @@ export * from './lib/components/form-field-label/form-field-label.component';
 export * from './lib/components/form-field-hint/form-field-hint.component';
 export * from './lib/components/dropdown/dropdown.component';
 export * from './lib/components/dropdown-item/dropdown-item.component';
+export * from './lib/components/date-picker/directives/date-picker.directive';
 
 // Directives
 export * from './lib/directives/text-button/text-button.directive';
