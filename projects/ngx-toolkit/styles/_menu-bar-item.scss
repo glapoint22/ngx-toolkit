@@ -1,0 +1,14 @@
+.menu-bar-item {
+    outline: none;
+    border: none;
+    background: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 4px 7px;
+    color: var(--menu-bar-item-text-color);
+}
+
+menu-bar:not(#activated-menu-bar) .menu-bar-item:hover,
+.activated-menu-bar-item {
+    background: var(--menu-bar-item-background-color);
+}

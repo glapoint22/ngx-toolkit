@@ -1,0 +1,88 @@
+.menu {
+    display: flex;
+    flex-direction: column;
+    padding: 4px 0;
+    width: 100%;
+    background: var(--menu-background-color);
+    outline: 1px solid var(--menu-border-color);
+    border-radius: 4px;
+    box-shadow: 3px 3px 7px 1px rgba(0, 0, 0, 0.14);
+    pointer-events: none;
+
+    divider {
+        border-top: none;
+        padding: 8px 0;
+
+        &::before {
+            content: ' ';
+            display: block;
+            height: 1px;
+            background: var(--divider-color);
+        }
+    }
+
+    &:has(.menu-item icon) {
+        .menu-item:not(:has(icon)) *:not(svg) {
+            padding-left: 24px;
+        }
+    }
+}
+
+
+.menu-item {
+    outline: none;
+    border: none;
+    background: transparent;
+    color: var(--menu-item-text-color);
+
+    &>div {
+        display: flex;
+        height: 30px;
+        align-items: center;
+        border-radius: 4px;
+        padding: 0 16px;
+    }
+
+    icon {
+        margin-right: 8px;
+        color: var(--menu-item-icon-color);
+    }
+
+    [suffix] {
+        width: 185px;
+        text-align: right;
+        pointer-events: none;
+    }
+
+    &:disabled {
+        color: var(--menu-item-disabled-text-color);
+
+        icon {
+            color: var(--menu-item-disabled-icon-color);
+        }
+    }
+
+    --icon-color: none;
+}
+
+.submenu-icon {
+    width: 24px;
+    height: 10px;
+    fill: currentColor;
+    margin-left: auto;
+    margin-right: -10px;
+}
+
+.selected-menu-item:not(:disabled) {
+    cursor: pointer;
+
+    div {
+        color: var(--menu-item-hover-text-color);
+
+        icon {
+            color: var(--menu-item-hover-text-color);
+        }
+
+        background: var(--menu-item-hover-background-color);
+    }
+}

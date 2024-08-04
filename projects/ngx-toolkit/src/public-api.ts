@@ -10,6 +10,9 @@ export * from './lib/components/form-field-hint/form-field-hint.component';
 export * from './lib/components/dropdown/dropdown.component';
 export * from './lib/components/dropdown-item/dropdown-item.component';
 export * from './lib/components/date-picker/directives/date-picker.directive';
+export * from './lib/components/menu/menu.component';
+export * from './lib/components/menu/menu-item/menu-item.directive';
+export * from './lib/components/menu-bar/menu-bar.component';
 
 // Directives
 export * from './lib/directives/text-button/text-button.directive';
@@ -20,6 +23,7 @@ export * from './lib/directives/icon-button/icon-button.directive';
 export * from './lib/directives/prefix/prefix.directive';
 export * from './lib/directives/suffix/suffix.directive';
 export * from './lib/directives/input-field/input-field.directive';
+export * from './lib/directives/menu-trigger/menu-trigger.directive';
 
 // Types
 export * from './lib/types/color.type';

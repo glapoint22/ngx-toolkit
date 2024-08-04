@@ -8,6 +8,7 @@
 @use './styles/icon-button';
 @use './styles/form-field';
 @use './styles/input-field';
-@use './styles//calendar-grid';
-
+@use './styles/calendar-grid';
+@use './styles/menu';
+@use './styles/menu-bar-item';
 @use '@angular/cdk/overlay-prebuilt.css';
