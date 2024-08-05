@@ -1,0 +1,13 @@
+.panel-header {
+    display: flex;
+    height: 32px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    align-items: center;
+    user-select: none;
+    background-color: var(--panel-header-background-color);
+}
+
+.panel-header-actions {
+    margin-left: auto;
+}

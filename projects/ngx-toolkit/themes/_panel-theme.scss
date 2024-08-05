@@ -1,0 +1,10 @@
+@use './utility';
+
+@mixin theme($theme) {
+    @include utility.theme-variables($theme, 'panel', (
+        (variable-name: 'panel-border-color', color-keys: (light: 70, dark: 40), color-map: neutral-variant),
+        (variable-name: 'panel-background-color', color-keys: (light: 95, dark: 20), color-map: neutral),
+        (variable-name: 'panel-header-background-color', color-keys: (light: 40, dark: 80)),
+        (variable-name: 'panel-header-text-color', color-keys: (light: 100, dark: 20))
+    ));
+}

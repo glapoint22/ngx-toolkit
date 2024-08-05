@@ -1,0 +1,12 @@
+<div class="panel-header">
+    @if (title()) {
+        <ng-content select="panel-header-title" />
+    }
+
+
+    @if (actions()) {
+        <div class="panel-header-actions">
+            <ng-content select="panel-header-actions" />
+        </div>
+    }
+</div>

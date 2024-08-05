@@ -16,6 +16,7 @@
 @use './radio-button-theme' as radio-button;
 @use './raised-button-theme' as raised-button;
 @use './stroked-button-theme' as stroked-button;
+@use './panel-theme' as panel;
 
 
 @mixin themes($theme) {
@@ -37,4 +38,5 @@
     @include radio-button.theme($theme);
     @include raised-button.theme($theme);
     @include stroked-button.theme($theme);
+    @include panel.theme($theme);
 }

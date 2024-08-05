@@ -13,6 +13,10 @@ export * from './lib/components/date-picker/directives/date-picker.directive';
 export * from './lib/components/menu/menu.component';
 export * from './lib/components/menu/menu-item/menu-item.directive';
 export * from './lib/components/menu-bar/menu-bar.component';
+export * from './lib/components/panel/panel.component';
+export * from './lib/components/panel/panel-header/panel-header.component';
+export * from './lib/components/panel/panel-header-title/panel-header-title.component';
+export * from './lib/components/panel/panel-header-actions/panel-header-actions.component';
 
 // Directives
 export * from './lib/directives/text-button/text-button.directive';
@@ -24,6 +28,7 @@ export * from './lib/directives/prefix/prefix.directive';
 export * from './lib/directives/suffix/suffix.directive';
 export * from './lib/directives/input-field/input-field.directive';
 export * from './lib/directives/menu-trigger/menu-trigger.directive';
+export * from './lib/components/panel/panel-header-action-button/panel-header-action-button.directive';
 
 // Types
 export * from './lib/types/color.type';
