@@ -7,6 +7,7 @@
     width: 35px;
     font-size: 13px;
     color: var(--icon-button-color);
+    --icon-color: none;
     
 
     &:hover:not([disabled]):before {
@@ -25,6 +26,4 @@
         background: none;
         color: var(--icon-button-disabled-color);
     }
-
-    --icon-color: none;
 }

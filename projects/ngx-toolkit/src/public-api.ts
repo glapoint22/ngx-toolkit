@@ -17,6 +17,7 @@ export * from './lib/components/panel/panel.component';
 export * from './lib/components/panel/panel-header/panel-header.component';
 export * from './lib/components/panel/panel-header-title/panel-header-title.component';
 export * from './lib/components/panel/panel-header-actions/panel-header-actions.component';
+export * from './lib/components/panel/panel-content/panel-content.component';
 
 // Directives
 export * from './lib/directives/text-button/text-button.directive';
@@ -29,7 +30,12 @@ export * from './lib/directives/suffix/suffix.directive';
 export * from './lib/directives/input-field/input-field.directive';
 export * from './lib/directives/menu-trigger/menu-trigger.directive';
 export * from './lib/components/panel/panel-header-action-button/panel-header-action-button.directive';
+export * from './lib/directives/dynamic-component-close/dynamic-component-close.directive';
+
+// Services
+export * from './lib/services/dynamic-component/dynamic-component.service';
 
 // Types
 export * from './lib/types/color.type';
 export * from './lib/types/layout.type';
+export * from './lib/types/dynamic-component-data';

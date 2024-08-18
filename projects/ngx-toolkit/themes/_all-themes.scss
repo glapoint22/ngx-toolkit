@@ -3,7 +3,6 @@
 @use './calendar-theme' as calendar;
 @use './checkbox-theme' as checkbox;
 @use './selection-control-theme' as selection-control;
-@use './dialog-theme' as dialog;
 @use './divider-theme' as divider;
 @use './dropdown-theme' as dropdown;
 @use './flat-button-theme' as flat-button;
@@ -25,7 +24,6 @@
     @include calendar.theme($theme);
     @include checkbox.theme($theme);
     @include selection-control.theme($theme);
-    @include dialog.theme($theme);
     @include divider.theme($theme);
     @include dropdown.theme($theme);
     @include flat-button.theme($theme);

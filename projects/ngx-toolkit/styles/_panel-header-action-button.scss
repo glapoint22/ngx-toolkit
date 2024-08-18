@@ -1,0 +1,16 @@
+.panel-header-action-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    --icon-color: none;
+    width: 37px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--panel-header-text-color);
+
+    &:hover {
+        background: var(--panel-header-hover-text-color);
+    }
+}
