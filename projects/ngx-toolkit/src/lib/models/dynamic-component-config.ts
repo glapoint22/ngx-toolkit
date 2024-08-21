@@ -13,7 +13,6 @@ export interface DynamicComponentConfig {
     maxHeight?: number | string;
     globalPosition?: GlobalPosition;
     data?: any;
-    useFlexiblePositioning?: boolean;
-    origin?: FlexibleConnectedPositionStrategyOrigin;
+    connectedPositionOrigin?: FlexibleConnectedPositionStrategyOrigin;
     conntectedPositions?: ConnectedPosition[];
 }
