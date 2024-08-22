@@ -1,4 +1,4 @@
-import { Component, ElementRef, output, OutputEmitterRef, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, output, OutputEmitterRef, viewChild } from '@angular/core';
 import { ColorType } from '../../../../types/color.type';
 import { CalendarView } from '../../models/calendar-view';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -6,6 +6,8 @@ import { ColorDirective } from '../../../../directives/color/color.directive';
 import { DayViewComponent } from '../day-view/day-view.component';
 import { MonthViewComponent } from '../month-view/month-view.component';
 import { YearViewComponent } from '../year-view/year-view.component';
+import { DYNAMIC_COMPONENT_DATA } from '../../../../types/dynamic-component-data';
+import { CalendarData } from '../../models/calendar-data';
 
 @Component({
   selector: 'calendar',
@@ -24,16 +26,20 @@ export class CalendarComponent {
   protected currentCalendarView = CalendarView.Day;
   protected calendarView = CalendarView;
   private calendarBase = viewChild<ElementRef>('calendarBase');
+  private calendarData = inject(DYNAMIC_COMPONENT_DATA) as CalendarData;
 
 
   public ngOnInit(): void {
+    this.initialize();
     setTimeout(() => this.calendarBase()?.nativeElement.focus());
   }
 
 
 
 
-  public initialize(color: ColorType, date?: Date): void {
+  public initialize(): void {
+    let { date, color } = this.calendarData;
+
     this.selectedDate = date;
     this.color = color;
 

@@ -35,12 +35,9 @@ export class DatePickerDirective implements ControlValueAccessor {
       return;
     }
 
-    const date = this.elementRef.nativeElement.value ? new Date(this.elementRef.nativeElement.value) : undefined;
     const calendar = await this.openCalendar();
 
-    calendar.initialize(this.color(), date);
     calendar.onDateChange.subscribe((date: Date) => this.onDateChange(date));
-
     this.createListeners();
   }
 
@@ -59,11 +56,15 @@ export class DatePickerDirective implements ControlValueAccessor {
           overlayX: 'start',
           overlayY: 'top'
         }
-      ]
+      ],
+      data: {
+        color: this.color(),
+        date: this.elementRef.nativeElement.value ? new Date(this.elementRef.nativeElement.value) : undefined
+      }
     });
 
     this.isCalendarOpen = true;
-    return this.dynamicComponentRef.componentInstance;
+    return this.dynamicComponentRef.instance;
   }
 
 

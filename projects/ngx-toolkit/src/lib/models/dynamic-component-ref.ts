@@ -4,7 +4,7 @@ import { Observable, Subject } from "rxjs";
 import { DynamicComponentConfig } from "./dynamic-component-config";
 
 export class DynamicComponentRef<T> {
-    public componentInstance!: T;
+    public instance!: T;
     public componentRef!: ComponentRef<T> | null;
     private _afterClosed = new Subject<any>();
     private _beforeClosed = new Subject<any>();
