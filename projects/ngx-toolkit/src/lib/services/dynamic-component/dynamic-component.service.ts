@@ -1,6 +1,6 @@
 import { FlexibleConnectedPositionStrategy, GlobalPositionStrategy, Overlay, OverlayRef } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { inject, Injectable, Injector, Type } from '@angular/core';
+import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
+import { inject, Injectable, Injector, TemplateRef, Type, ViewContainerRef } from '@angular/core';
 import { DynamicComponentConfig } from '../../models/dynamic-component-config';
 import { DYNAMIC_COMPONENT_DATA } from '../../types/dynamic-component-data';
 import { DynamicComponentRef } from '../../models/dynamic-component-ref';
@@ -12,55 +12,56 @@ export class DynamicComponentService {
   private overlay = inject(Overlay);
   private injector = inject(Injector);
 
-  /**
- * Opens a dynamic component and attaches it to an overlay.
- * 
- * @template T The type of the component to open.
- * @param component The component type to instantiate dynamically.
- * @param config Optional configuration for creating the overlay and injecting data into the component.
- * @returns A reference to the dynamic component, allowing interaction with it.
- */
-  public open<T>(component: Type<T>, config?: DynamicComponentConfig): DynamicComponentRef<T> {
-    // Create an overlay reference using the provided configuration.
-    // The overlay will act as a container for the dynamic component.
+  public open<T>(component: Type<T>, config?: DynamicComponentConfig): DynamicComponentRef<T>;
+
+
+
+
+  public open<T>(templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef, config?: DynamicComponentConfig): DynamicComponentRef<T>;
+
+
+
+
+  public open<T>(componentOrTemplate: Type<T> | TemplateRef<any>, viewContainerRefOrConfig?: ViewContainerRef | DynamicComponentConfig, config?: DynamicComponentConfig): DynamicComponentRef<T> {
+    config = viewContainerRefOrConfig instanceof ViewContainerRef ? config : viewContainerRefOrConfig as DynamicComponentConfig;
+
     const overlayRef = this.createOverlay(config);
-
-    // Create a new instance of DynamicComponentRef which will manage the dynamic component.
-    // This holds the overlay reference and configuration.
     const dynamicComponentRef = new DynamicComponentRef<T>(overlayRef, config);
-
-    // Create an injector specifically for the dynamic component.
-    // This injector provides the data and a reference to the dynamic component.
     const dynamicComponentInjector = Injector.create({
       providers: [
-        // Provide the configuration data as DYNAMIC_COMPONENT_DATA, which the component can inject.
         { provide: DYNAMIC_COMPONENT_DATA, useValue: config?.data },
-        // Provide the dynamicComponentRef itself, so the component can have a reference to it.
         { provide: DynamicComponentRef, useValue: dynamicComponentRef }
       ],
-      // Use the parent injector to resolve other dependencies.
       parent: this.injector
     });
 
-    // Create a portal for the component to be dynamically injected into the overlay.
-    // A portal is a way to dynamically render a component in a target location.
-    const componentPortal = new ComponentPortal(component, null, dynamicComponentInjector);
+    const portal = this.createPortal(componentOrTemplate, dynamicComponentInjector, viewContainerRefOrConfig as ViewContainerRef);
+    const componentRef = overlayRef.attach(portal);
 
-    // Attach the component to the overlay, which returns a reference to the attached component.
-    const componentRef = overlayRef.attach(componentPortal);
-
-    // Assign the component instance to the dynamicComponentRef for further manipulation if needed.
     dynamicComponentRef.instance = componentRef.instance;
-    // Store the component reference in the dynamicComponentRef for later access.
     dynamicComponentRef.componentRef = componentRef;
 
-    // Return the dynamicComponentRef which allows interaction with the dynamically created component.
     return dynamicComponentRef;
   }
 
 
 
 
+  private createPortal<T>(componentOrTemplate: Type<T> | TemplateRef<any>, injector: Injector, viewContainerRef: ViewContainerRef): ComponentPortal<T> | TemplatePortal<any> {
+    if (componentOrTemplate instanceof TemplateRef) {
+      const templateRef = componentOrTemplate as TemplateRef<any>;
+
+      return new TemplatePortal(templateRef, viewContainerRef, null, injector);
+    } else {
+      const component = componentOrTemplate as Type<T>;
+
+      return new ComponentPortal(component, null, injector);
+    }
+  }
+
+
+
+  
   private createOverlay(config?: DynamicComponentConfig): OverlayRef {
     // Create an overlay using the provided configuration options.
     return this.overlay.create({
