@@ -1,10 +1,11 @@
-import { AfterContentInit, Component, contentChildren, ElementRef, inject, input, OnDestroy, output, Renderer2, TemplateRef, viewChild, ViewContainerRef } from '@angular/core';
+import { AfterContentInit, Component, contentChildren, ElementRef, inject, input, output, Renderer2, TemplateRef, viewChild, ViewContainerRef } from '@angular/core';
 import { ColorType } from '../../types/color.type';
-import { ConnectedPosition, FlexibleConnectedPositionStrategy, FlexibleConnectedPositionStrategyOrigin, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { MenuItemDirective } from './menu-item/menu-item.directive';
 import { DividerComponent } from '../divider/divider.component';
-import { TemplatePortal } from '@angular/cdk/portal';
 import { ColorDirective } from '../../directives/color/color.directive';
+import { ConnectedPosition, FlexibleConnectedPositionStrategyOrigin } from '@angular/cdk/overlay';
+import { DynamicComponentService } from '../../services/dynamic-component/dynamic-component.service';
+import { DynamicComponentRef } from '../../models/dynamic-component-ref';
 
 @Component({
   selector: 'menu',
@@ -13,15 +14,14 @@ import { ColorDirective } from '../../directives/color/color.directive';
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
-export class MenuComponent implements AfterContentInit, OnDestroy {
+export class MenuComponent implements AfterContentInit {
   public color = input<ColorType>('primary');
   public onClose = output<void>();
   public onRightArrowDown = output<void>();
   public onLeftArrowDown = output<void>();
   public isOpen: boolean = false;
-  private overlay = inject(Overlay);
-  private overlayRef!: OverlayRef;
   private viewContainerRef = inject(ViewContainerRef);
+  private dynamicComponentService = inject(DynamicComponentService);
   private menuTemplate = viewChild<TemplateRef<any>>('menuTemplate');
   private menuElement = viewChild<ElementRef<HTMLElement>>('menu');
   private menuItems = contentChildren(MenuItemDirective);
@@ -36,6 +36,7 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
   private removeMouseDownDividerListeners: Array<() => void> = [];
   private parent!: MenuComponent | null;
   private timeoutId!: any;
+  private dynamicComponentRef!: DynamicComponentRef<any>;
 
 
   public ngAfterContentInit(): void {
@@ -118,20 +119,23 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
 
 
   private openMenu(origin: FlexibleConnectedPositionStrategyOrigin, positions: ConnectedPosition[]): void {
-    const positionStrategy = this.overlay.position()
-      .flexibleConnectedTo(origin)
-      .withPositions(positions);
+    this.dynamicComponentRef = this.dynamicComponentService.open(this.menuTemplate()!, this.viewContainerRef, {
+      connectedPositionOrigin: origin,
+      conntectedPositions: positions
+    });
 
     this.isOpen = true;
-    this.createOverlay(positionStrategy);
     this.createListeners();
+    setTimeout(() => {
+      this.renderer.setStyle(this.menuElement()?.nativeElement, 'pointer-events', 'all');
+    });
   }
 
 
 
 
   public close(): void {
-    this.overlayRef?.detach();
+    this.dynamicComponentRef.close();
     this.removeListeners();
     this.isOpen = false;
     this.setDirty(false);
@@ -149,21 +153,12 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
   private getParentMenu(): MenuComponent {
     return this.parent ? this.parent.getParentMenu() : this;
   }
+
+
+
+
   private setParent(parent: MenuComponent): void {
     this.parent = parent;
-  }
-
-
-
-
-  private createOverlay(positionStrategy: FlexibleConnectedPositionStrategy): void {
-    this.overlayRef = this.overlay.create({ positionStrategy });
-
-    const portal = new TemplatePortal(this.menuTemplate()!, this.viewContainerRef);
-    this.overlayRef.attach(portal);
-    setTimeout(() => {
-      this.renderer.setStyle(this.menuElement()?.nativeElement, 'pointer-events', 'all');
-    });
   }
 
 
@@ -410,12 +405,5 @@ export class MenuComponent implements AfterContentInit, OnDestroy {
         this.selectedMenuItem?.setSelected(false);
       }
     });
-  }
-
-
-
-  
-  public ngOnDestroy(): void {
-    this.overlayRef.dispose();
   }
 }

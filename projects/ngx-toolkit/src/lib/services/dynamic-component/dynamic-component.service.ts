@@ -25,6 +25,7 @@ export class DynamicComponentService {
   public open<T>(componentOrTemplate: Type<T> | TemplateRef<any>, viewContainerRefOrConfig?: ViewContainerRef | DynamicComponentConfig, config?: DynamicComponentConfig): DynamicComponentRef<T> {
     config = viewContainerRefOrConfig instanceof ViewContainerRef ? config : viewContainerRefOrConfig as DynamicComponentConfig;
 
+    const viewContainerRef = viewContainerRefOrConfig instanceof ViewContainerRef ? viewContainerRefOrConfig : undefined;
     const overlayRef = this.createOverlay(config);
     const dynamicComponentRef = new DynamicComponentRef<T>(overlayRef, config);
     const dynamicComponentInjector = Injector.create({
@@ -35,7 +36,7 @@ export class DynamicComponentService {
       parent: this.injector
     });
 
-    const portal = this.createPortal(componentOrTemplate, dynamicComponentInjector, viewContainerRefOrConfig as ViewContainerRef);
+    const portal = this.createPortal(componentOrTemplate, dynamicComponentInjector, viewContainerRef);
     const componentRef = overlayRef.attach(portal);
 
     dynamicComponentRef.instance = componentRef.instance;
@@ -47,11 +48,11 @@ export class DynamicComponentService {
 
 
 
-  private createPortal<T>(componentOrTemplate: Type<T> | TemplateRef<any>, injector: Injector, viewContainerRef: ViewContainerRef): ComponentPortal<T> | TemplatePortal<any> {
+  private createPortal<T>(componentOrTemplate: Type<T> | TemplateRef<any>, injector: Injector, viewContainerRef?: ViewContainerRef): ComponentPortal<T> | TemplatePortal<any> {
     if (componentOrTemplate instanceof TemplateRef) {
       const templateRef = componentOrTemplate as TemplateRef<any>;
 
-      return new TemplatePortal(templateRef, viewContainerRef, null, injector);
+      return new TemplatePortal(templateRef, viewContainerRef!, null, injector);
     } else {
       const component = componentOrTemplate as Type<T>;
 

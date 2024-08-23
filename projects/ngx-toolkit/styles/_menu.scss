@@ -74,13 +74,17 @@
 
 .selected-menu-item:not(:disabled) {
     cursor: pointer;
-    background: var(--menu-item-hover-background-color);
+    
 
     div {
         color: var(--menu-item-hover-text-color);
 
         icon {
             color: var(--menu-item-hover-text-color);
+        }
+
+        & {
+            background: var(--menu-item-hover-background-color);
         }
     }
 }

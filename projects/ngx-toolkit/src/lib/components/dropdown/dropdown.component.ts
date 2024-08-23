@@ -1,11 +1,11 @@
 import { AfterViewInit, booleanAttribute, Component, contentChildren, forwardRef, inject, input, Renderer2, TemplateRef, viewChild, ViewContainerRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FormFieldComponent } from '../form-field/form-field.component';
-import { Overlay, OverlayRef } from '@angular/cdk/overlay';
-import { TemplatePortal } from '@angular/cdk/portal';
 import { DropdownItemComponent } from '../dropdown-item/dropdown-item.component';
 import { CommonModule } from '@angular/common';
 import { ColorDirective } from '../../directives/color/color.directive';
+import { DynamicComponentService } from '../../services/dynamic-component/dynamic-component.service';
+import { DynamicComponentRef } from '../../models/dynamic-component-ref';
 
 @Component({
   selector: 'dropdown',
@@ -23,11 +23,10 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
   public disabled = input(false, { transform: booleanAttribute });
   protected selectedValue!: string;
   protected formField = inject(FormFieldComponent);
+  private dynamicComponentService = inject(DynamicComponentService);
   private dropdownListTemplate = viewChild<TemplateRef<any>>('dropdownListTemplate');
   private dropdownItems = contentChildren(DropdownItemComponent);
-  private overlay = inject(Overlay);
   private viewContainerRef = inject(ViewContainerRef);
-  private overlayRef!: OverlayRef;
   private isDropdownListOpen!: boolean;
   private renderer = inject(Renderer2);
   private removeEscapeKeyListener!: () => void;
@@ -35,6 +34,7 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
   private removeKeydownListener!: () => void;
   private onChange!: (value: any) => void;
   private selectedDropdownItemIndex: number = -1;
+  private dynamicComponentRef!: DynamicComponentRef<any>;
 
 
   ngAfterViewInit() {
@@ -78,9 +78,9 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
 
   
   private openList(): void {
-    const positionStrategy = this.overlay.position()
-      .flexibleConnectedTo(this.viewContainerRef.element.nativeElement.parentElement)
-      .withPositions([
+    this.dynamicComponentRef = this.dynamicComponentService.open(this.dropdownListTemplate()!, this.viewContainerRef, {
+      connectedPositionOrigin: this.viewContainerRef.element.nativeElement.parentElement,
+      conntectedPositions: [
         {
           originX: 'start',
           originY: 'bottom',
@@ -88,12 +88,9 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
           overlayY: 'top',
           offsetY: -1
         }
-      ]);
-
-    this.overlayRef = this.overlay.create({ positionStrategy, width: this.viewContainerRef.element.nativeElement.parentElement.clientWidth + 'px' });
-
-    const portal = new TemplatePortal(this.dropdownListTemplate()!, this.viewContainerRef);
-    this.overlayRef.attach(portal);
+      ],
+      width: this.viewContainerRef.element.nativeElement.parentElement.clientWidth + 'px'
+    });
 
     this.isDropdownListOpen = true;
 
@@ -158,7 +155,7 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
 
 
   private closeList(): void {
-    this.overlayRef.detach();
+    this.dynamicComponentRef.close();
     this.isDropdownListOpen = false;
     this.removeEscapeKeyListener();
     this.removeMousewheelListener();
@@ -197,11 +194,4 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
 
 
   registerOnTouched(fn: any): void { }
-
-
-
-
-  ngOnDestroy(): void {
-    this.overlayRef.dispose();
-  }
 }
