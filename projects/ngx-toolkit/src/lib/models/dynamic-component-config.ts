@@ -1,16 +1,9 @@
-import { ConnectedPosition, FlexibleConnectedPositionStrategyOrigin } from "@angular/cdk/overlay";
+import { ConnectedPosition, FlexibleConnectedPositionStrategyOrigin, OverlayConfig } from "@angular/cdk/overlay";
 import { GlobalPosition } from "./global-position";
 
 export interface DynamicComponentConfig {
-    hasBackdrop?: boolean;
-    backdropClass?: string | string[];
+    overlayConfig?: OverlayConfig;
     disableClose?: boolean;
-    width?: string;
-    height?: string;
-    minWidth?: number | string;
-    minHeight?: number | string;
-    maxWidth?: number | string;
-    maxHeight?: number | string;
     globalPosition?: GlobalPosition;
     data?: any;
     connectedPositionOrigin?: FlexibleConnectedPositionStrategyOrigin;

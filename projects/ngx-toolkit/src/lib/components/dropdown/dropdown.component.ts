@@ -89,7 +89,9 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
           offsetY: -1
         }
       ],
-      width: this.viewContainerRef.element.nativeElement.parentElement.clientWidth + 'px'
+      overlayConfig: {
+        width: this.viewContainerRef.element.nativeElement.parentElement.clientWidth + 'px'
+      }
     });
 
     this.isDropdownListOpen = true;

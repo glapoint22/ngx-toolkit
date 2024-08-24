@@ -65,17 +65,10 @@ export class DynamicComponentService {
   
   private createOverlay(config?: DynamicComponentConfig): OverlayRef {
     // Create an overlay using the provided configuration options.
-    return this.overlay.create({
-      positionStrategy: this.getPositionStrategy(config), // Set the position strategy
-      hasBackdrop: config?.hasBackdrop, // Optionally enable or disable the backdrop
-      backdropClass: config?.backdropClass, // Optionally apply a custom backdrop class
-      width: config?.width, // Optionally set the overlay's width
-      height: config?.height, // Optionally set the overlay's height
-      maxWidth: config?.maxWidth, // Optionally set a maximum width for the overlay
-      maxHeight: config?.maxHeight, // Optionally set a maximum height for the overlay
-      minWidth: config?.minWidth, // Optionally set a minimum width for the overlay
-      minHeight: config?.minHeight // Optionally set a minimum height for the overlay
-    });
+    const overlayRef = this.overlay.create(config?.overlayConfig);
+    overlayRef.updatePositionStrategy(this.getPositionStrategy(config));
+
+    return overlayRef;
   }
 
 
