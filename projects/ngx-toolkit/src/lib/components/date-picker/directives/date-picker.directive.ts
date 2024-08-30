@@ -2,8 +2,8 @@ import { Directive, ElementRef, forwardRef, HostListener, inject, input, Rendere
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ColorType } from '../../../types/color.type';
 import { CalendarComponent } from '../components/calendar/calendar.component';
-import { DynamicComponentService } from '../../../services/dynamic-component/dynamic-component.service';
-import { DynamicComponentRef } from '../../../models/dynamic-component-ref';
+import { PopupService } from '../../../services/popup/popup.service';
+import { PopupRef } from '../../../models/popup-ref';
 
 @Directive({
   selector: '[datePicker]',
@@ -19,14 +19,14 @@ export class DatePickerDirective implements ControlValueAccessor {
   public color = input<ColorType>('primary');
   private elementRef: ElementRef<HTMLInputElement> = inject(ElementRef<HTMLInputElement>);
   private renderer = inject(Renderer2);
-  private dynamicComponentService = inject(DynamicComponentService);
+  private popupService = inject(PopupService);
   private removeWindowClickListener!: () => void;
   private removeElementRefClickListener!: () => void;
   private removeEscapeKeyListener!: () => void;
   private onChange!: (value: Date) => void;
   protected onTouched!: () => void;
   private isCalendarOpen: boolean = false;
-  private dynamicComponentRef!: DynamicComponentRef<CalendarComponent>;
+  private popupRef!: PopupRef<CalendarComponent>;
 
 
   public async toggleCalendar(): Promise<void> {
@@ -47,16 +47,16 @@ export class DatePickerDirective implements ControlValueAccessor {
   private async openCalendar(): Promise<CalendarComponent> {
     const { CalendarComponent } = await import('../components/calendar/calendar.component');
 
-    this.dynamicComponentRef = this.dynamicComponentService.open(CalendarComponent, {
-      connectedPositionOrigin: this.elementRef.nativeElement.parentElement!,
-      conntectedPositions: [
-        {
-          originX: 'start',
-          originY: 'bottom',
-          overlayX: 'start',
-          overlayY: 'top'
-        }
-      ],
+    this.popupRef = this.popupService.open(CalendarComponent, {
+      positionStrategy: this.popupService.getFlexiblePositionStrategy(this.elementRef.nativeElement.parentElement!)
+        .withPositions([
+          {
+            originX: 'start',
+            originY: 'bottom',
+            overlayX: 'start',
+            overlayY: 'top'
+          }
+        ]),
       data: {
         color: this.color(),
         date: this.elementRef.nativeElement.value ? new Date(this.elementRef.nativeElement.value) : undefined
@@ -64,14 +64,14 @@ export class DatePickerDirective implements ControlValueAccessor {
     });
 
     this.isCalendarOpen = true;
-    return this.dynamicComponentRef.instance;
+    return this.popupRef.instance;
   }
 
 
 
 
   private closeCalendar(): void {
-    this.dynamicComponentRef.close();
+    this.popupRef.close();
     this.removeListeners();
     this.isCalendarOpen = false;
   }

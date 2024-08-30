@@ -30,12 +30,17 @@ export * from './lib/directives/suffix/suffix.directive';
 export * from './lib/directives/input-field/input-field.directive';
 export * from './lib/directives/menu-trigger/menu-trigger.directive';
 export * from './lib/components/panel/panel-header-action-button/panel-header-action-button.directive';
-export * from './lib/directives/dynamic-component-close/dynamic-component-close.directive';
+export * from './lib/directives/popup-close/popup-close.directive';
 
 // Services
-export * from './lib/services/dynamic-component/dynamic-component.service';
+export * from './lib/services/popup/popup.service';
 
 // Types
 export * from './lib/types/color.type';
 export * from './lib/types/layout.type';
-export * from './lib/types/dynamic-component-data';
+export * from './lib/types/popup-data';
+
+
+// Models
+export * from './lib/models/popup-ref';
+export * from './lib/models/popup-config';

@@ -1,9 +1,9 @@
 import { OverlayRef } from "@angular/cdk/overlay";
 import { ComponentRef } from "@angular/core";
 import { Observable, Subject } from "rxjs";
-import { DynamicComponentConfig } from "./dynamic-component-config";
+import { PopupConfig } from "./popup-config";
 
-export class DynamicComponentRef<T> {
+export class PopupRef<T> {
     public instance!: T;
     public componentRef!: ComponentRef<T> | null;
     private _afterClosed = new Subject<any>();
@@ -12,7 +12,7 @@ export class DynamicComponentRef<T> {
     private _backdropClick = new Subject<MouseEvent>();
     private _keydownEvents = new Subject<KeyboardEvent>();
 
-    constructor(private overlayRef: OverlayRef, private config?: DynamicComponentConfig) {
+    constructor(private overlayRef: OverlayRef, private config?: PopupConfig) {
         setTimeout(() => {
             this._afterOpened.next();
         });

@@ -4,8 +4,8 @@ import { FormFieldComponent } from '../form-field/form-field.component';
 import { DropdownItemComponent } from '../dropdown-item/dropdown-item.component';
 import { CommonModule } from '@angular/common';
 import { ColorDirective } from '../../directives/color/color.directive';
-import { DynamicComponentService } from '../../services/dynamic-component/dynamic-component.service';
-import { DynamicComponentRef } from '../../models/dynamic-component-ref';
+import { PopupService } from '../../services/popup/popup.service';
+import { PopupRef } from '../../models/popup-ref';
 
 @Component({
   selector: 'dropdown',
@@ -23,7 +23,7 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
   public disabled = input(false, { transform: booleanAttribute });
   protected selectedValue!: string;
   protected formField = inject(FormFieldComponent);
-  private dynamicComponentService = inject(DynamicComponentService);
+  private popupService = inject(PopupService);
   private dropdownListTemplate = viewChild<TemplateRef<any>>('dropdownListTemplate');
   private dropdownItems = contentChildren(DropdownItemComponent);
   private viewContainerRef = inject(ViewContainerRef);
@@ -34,7 +34,7 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
   private removeKeydownListener!: () => void;
   private onChange!: (value: any) => void;
   private selectedDropdownItemIndex: number = -1;
-  private dynamicComponentRef!: DynamicComponentRef<any>;
+  private popupRef!: PopupRef<any>;
 
 
   ngAfterViewInit() {
@@ -78,21 +78,21 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
 
   
   private openList(): void {
-    this.dynamicComponentRef = this.dynamicComponentService.open(this.dropdownListTemplate()!, this.viewContainerRef, {
-      connectedPositionOrigin: this.viewContainerRef.element.nativeElement.parentElement,
-      conntectedPositions: [
-        {
-          originX: 'start',
-          originY: 'bottom',
-          overlayX: 'start',
-          overlayY: 'top',
-          offsetY: -1
-        }
-      ],
-      overlayConfig: {
+    this.popupRef = this.popupService.open(this.dropdownListTemplate()!, this.viewContainerRef, 
+      {
+        positionStrategy: this.popupService.getFlexiblePositionStrategy(this.viewContainerRef.element.nativeElement.parentElement)
+        .withPositions([
+          {
+            originX: 'start',
+            originY: 'bottom',
+            overlayX: 'start',
+            overlayY: 'top',
+            offsetY: -1
+          }
+        ]),
         width: this.viewContainerRef.element.nativeElement.parentElement.clientWidth + 'px'
       }
-    });
+    );
 
     this.isDropdownListOpen = true;
 
@@ -157,7 +157,7 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
 
 
   private closeList(): void {
-    this.dynamicComponentRef.close();
+    this.popupRef.close();
     this.isDropdownListOpen = false;
     this.removeEscapeKeyListener();
     this.removeMousewheelListener();

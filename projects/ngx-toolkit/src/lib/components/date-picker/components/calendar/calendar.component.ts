@@ -6,7 +6,7 @@ import { ColorDirective } from '../../../../directives/color/color.directive';
 import { DayViewComponent } from '../day-view/day-view.component';
 import { MonthViewComponent } from '../month-view/month-view.component';
 import { YearViewComponent } from '../year-view/year-view.component';
-import { DYNAMIC_COMPONENT_DATA } from '../../../../types/dynamic-component-data';
+import { POPUP_DATA } from '../../../../types/popup-data';
 import { CalendarData } from '../../models/calendar-data';
 
 @Component({
@@ -26,7 +26,7 @@ export class CalendarComponent {
   protected currentCalendarView = CalendarView.Day;
   protected calendarView = CalendarView;
   private calendarBase = viewChild<ElementRef>('calendarBase');
-  private calendarData = inject(DYNAMIC_COMPONENT_DATA) as CalendarData;
+  private calendarData = inject(POPUP_DATA) as CalendarData;
 
 
   public ngOnInit(): void {
@@ -37,7 +37,7 @@ export class CalendarComponent {
 
 
 
-  public initialize(): void {
+  private initialize(): void {
     let { date, color } = this.calendarData;
 
     this.selectedDate = date;

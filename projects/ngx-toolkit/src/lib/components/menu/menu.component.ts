@@ -4,8 +4,8 @@ import { MenuItemDirective } from './menu-item/menu-item.directive';
 import { DividerComponent } from '../divider/divider.component';
 import { ColorDirective } from '../../directives/color/color.directive';
 import { ConnectedPosition, FlexibleConnectedPositionStrategyOrigin } from '@angular/cdk/overlay';
-import { DynamicComponentService } from '../../services/dynamic-component/dynamic-component.service';
-import { DynamicComponentRef } from '../../models/dynamic-component-ref';
+import { PopupService } from '../../services/popup/popup.service';
+import { PopupRef } from '../../models/popup-ref';
 
 @Component({
   selector: 'menu',
@@ -21,7 +21,7 @@ export class MenuComponent implements AfterContentInit {
   public onLeftArrowDown = output<void>();
   public isOpen: boolean = false;
   private viewContainerRef = inject(ViewContainerRef);
-  private dynamicComponentService = inject(DynamicComponentService);
+  private popupService = inject(PopupService);
   private menuTemplate = viewChild<TemplateRef<any>>('menuTemplate');
   private menuElement = viewChild<ElementRef<HTMLElement>>('menu');
   private menuItems = contentChildren(MenuItemDirective);
@@ -36,7 +36,7 @@ export class MenuComponent implements AfterContentInit {
   private removeMouseDownDividerListeners: Array<() => void> = [];
   private parent!: MenuComponent | null;
   private timeoutId!: any;
-  private dynamicComponentRef!: DynamicComponentRef<any>;
+  private popupRef!: PopupRef<any>;
 
 
   public ngAfterContentInit(): void {
@@ -119,9 +119,8 @@ export class MenuComponent implements AfterContentInit {
 
 
   private openMenu(origin: FlexibleConnectedPositionStrategyOrigin, positions: ConnectedPosition[]): void {
-    this.dynamicComponentRef = this.dynamicComponentService.open(this.menuTemplate()!, this.viewContainerRef, {
-      connectedPositionOrigin: origin,
-      conntectedPositions: positions
+    this.popupRef = this.popupService.open(this.menuTemplate()!, this.viewContainerRef, {
+      positionStrategy: this.popupService.getFlexiblePositionStrategy(origin).withPositions(positions)
     });
 
     this.isOpen = true;
@@ -135,7 +134,7 @@ export class MenuComponent implements AfterContentInit {
 
 
   public close(): void {
-    this.dynamicComponentRef.close();
+    this.popupRef.close();
     this.removeListeners();
     this.isOpen = false;
     this.setDirty(false);
