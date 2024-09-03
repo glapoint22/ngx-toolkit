@@ -18,6 +18,7 @@ export * from './lib/components/panel/panel-header/panel-header.component';
 export * from './lib/components/panel/panel-header-title/panel-header-title.component';
 export * from './lib/components/panel/panel-header-actions/panel-header-actions.component';
 export * from './lib/components/panel/panel-content/panel-content.component';
+export * from './lib/components/data-grid/data-grid.component';
 
 // Directives
 export * from './lib/directives/text-button/text-button.directive';
@@ -44,3 +45,4 @@ export * from './lib/types/popup-data';
 // Models
 export * from './lib/models/popup-ref';
 export * from './lib/models/popup-config';
+export * from './lib/components/data-grid/models/col-def';

@@ -1,0 +1,54 @@
+<div class="data-grid-base">
+
+    <!-- Header -->
+    <div #header class="data-grid-header">
+        <div class="data-grid-columns-container">
+
+            <!-- Header Columns -->
+            @for (column of columnDefs(); track $index) {
+            <div [style.width.px]="column.width" class="data-grid-column" (click)="sortColumn($index)">
+                <div class="resizer" (mousedown)="onMouseDown($index)" (click)="$event.stopPropagation()"></div>
+                <div class="data-grid-cell">
+                    <div class="data-grid-cell-value">
+                        {{column.field | titlecase}}
+                    </div>
+
+                    @if(currentSortIndex === $index) {
+                    <svg [style.transform]="'rotate(' + (isAsc ? 0 : 180) +'deg'" xmlns="http://www.w3.org/2000/svg"
+                        height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                        <path d="m280-400 200-200 200 200H280Z" />
+                    </svg>
+                    }
+
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+
+
+    <!-- Rows Container -->
+    <div class="data-grid-row-container" (scroll)="onRowScroll($event)">
+
+        <!-- Rows -->
+        @for (row of rowData(); track $index) {
+        <div class="data-grid-row" (click)="onRowClick(row)" [ngClass]="{'selected-row': row === selectdRow}">
+            <div class="data-grid-columns-container">
+
+                <!-- Row Columns -->
+                @for (column of columnDefs(); track $index) {
+                <div [style.width.px]="column.width" class="data-grid-column">
+                    <div class="data-grid-cell">
+                        <div class="data-grid-cell-value">
+                            {{row[column.field]}}
+                        </div>
+                    </div>
+                </div>
+                }
+
+            </div>
+        </div>
+        }
+
+    </div>
+</div>
