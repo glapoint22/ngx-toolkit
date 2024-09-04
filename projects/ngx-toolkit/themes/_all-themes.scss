@@ -16,6 +16,7 @@
 @use './raised-button-theme' as raised-button;
 @use './stroked-button-theme' as stroked-button;
 @use './panel-theme' as panel;
+@use './data-grid-theme' as data-grid;
 
 
 @mixin themes($theme) {
@@ -37,4 +38,5 @@
     @include raised-button.theme($theme);
     @include stroked-button.theme($theme);
     @include panel.theme($theme);
+    @include data-grid.theme($theme);
 }

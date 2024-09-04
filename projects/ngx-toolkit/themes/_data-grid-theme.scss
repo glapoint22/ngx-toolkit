@@ -1,0 +1,14 @@
+@use './utility';
+
+@mixin theme($theme) {
+    @include utility.theme-variables($theme, 'data-grid', (
+        (variable-name: 'data-grid-header-background-color', color-keys: (light: 95, dark: 30), color-map: neutral),
+        (variable-name: 'data-grid-row-background-color', color-keys: (light: 99, dark: 20), color-map: neutral),
+        (variable-name: 'data-grid-header-text-color', color-keys: (light: 20, dark: 80), color-map: neutral),
+        (variable-name: 'data-grid-border-color', color-keys: (light: 70, dark: 40), color-map: neutral-variant),
+        (variable-name: 'data-grid-hover-background-color', color-keys: (light: 10, dark: 90), color-map: 'neutral', opacity: 0.08),
+        (variable-name: 'data-grid-selected-row-color', color-keys: (light: 40, dark: 80)),
+        (variable-name: 'data-grid-selected-row-text-color', color-keys: (light: 100, dark: 20)),
+        (variable-name: 'data-grid-arrow-color', color-keys: (light: 40, dark: 70), color-map: 'neutral-variant'),
+    ));
+}

@@ -1,15 +1,18 @@
-import { Component, ElementRef, inject, model, Renderer2, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, input, model, Renderer2, viewChild } from '@angular/core';
 import { ColDef } from './models/col-def';
 import { CommonModule } from '@angular/common';
+import { ColorType } from '../../types/color.type';
+import { ColorDirective } from '../../directives/color/color.directive';
 
 @Component({
   selector: 'data-grid',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ColorDirective],
   templateUrl: './data-grid.component.html',
   styleUrl: './data-grid.component.scss'
 })
 export class DataGridComponent {
+  public color = input<ColorType>('primary');
   public columnDefs = model.required<ColDef[]>();
   public rowData = model<any>();
   protected currentSortIndex!: number;
