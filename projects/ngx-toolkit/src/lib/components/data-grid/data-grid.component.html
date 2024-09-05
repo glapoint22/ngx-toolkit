@@ -1,4 +1,4 @@
-<div class="data-grid-base" [color]="color()" componentName="data-grid">
+<div #dataGridBase cdkOverlayOrigin class="data-grid-base" [color]="color()" componentName="data-grid">
 
     <!-- Header -->
     <div #header class="data-grid-header">
@@ -7,7 +7,7 @@
             <!-- Header Columns -->
             @for (column of columnDefs(); track $index) {
             <div [style.width.px]="column.width" class="data-grid-column" (click)="sortColumn($index)">
-                <div class="resizer" (mousedown)="onMouseDown($index)" (click)="$event.stopPropagation()"></div>
+                <div class="resizer" (mousedown)="onMouseDown($index)"></div>
                 <div class="data-grid-cell">
                     <div class="data-grid-cell-value">
                         {{column.field | titlecase}}
@@ -52,3 +52,11 @@
 
     </div>
 </div>
+
+
+<ng-template cdkConnectedOverlay
+             [cdkConnectedOverlayOrigin]="dataGridBase"
+             [cdkConnectedOverlayHasBackdrop]="true"
+             [cdkConnectedOverlayOpen]="borderResizerActive()"
+             cdkConnectedOverlayBackdropClass="data-grid-header-column-resizer-overlay">
+</ng-template>

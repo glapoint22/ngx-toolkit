@@ -1,13 +1,14 @@
-import { Component, ElementRef, inject, input, model, Renderer2, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, input, model, Renderer2, signal, viewChild } from '@angular/core';
 import { ColDef } from './models/col-def';
 import { CommonModule } from '@angular/common';
 import { ColorType } from '../../types/color.type';
 import { ColorDirective } from '../../directives/color/color.directive';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'data-grid',
   standalone: true,
-  imports: [CommonModule, ColorDirective],
+  imports: [CommonModule, ColorDirective, OverlayModule],
   templateUrl: './data-grid.component.html',
   styleUrl: './data-grid.component.scss'
 })
@@ -18,6 +19,7 @@ export class DataGridComponent {
   protected currentSortIndex!: number;
   protected isAsc!: boolean;
   protected selectdRow: any;
+  protected borderResizerActive = signal(false);
   private renderer = inject(Renderer2);
   private header = viewChild<ElementRef<HTMLElement>>('header');
 
@@ -29,7 +31,9 @@ export class DataGridComponent {
   }
 
   protected onMouseDown(columnIndex: number) {
-    const removeMouseMoveListener = this.renderer.listen('document', 'mousemove', (mousemoveEvent: MouseEvent) => {
+    this.borderResizerActive.set(true);
+
+    const removeMouseMoveListener = this.renderer.listen('window', 'mousemove', (mousemoveEvent: MouseEvent) => {
       this.columnDefs.update((columns: ColDef[]) => {
         columns[columnIndex].width += mousemoveEvent.movementX;
 
@@ -38,9 +42,10 @@ export class DataGridComponent {
       });
     });
 
-    const removeMouseUpListener = this.renderer.listen('document', 'mouseup', () => {
+    const removeMouseUpListener = this.renderer.listen('window', 'mouseup', () => {
       removeMouseMoveListener();
       removeMouseUpListener();
+      this.borderResizerActive.set(false);
     });
   }
 
