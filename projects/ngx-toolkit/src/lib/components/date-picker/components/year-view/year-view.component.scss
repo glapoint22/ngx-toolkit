@@ -11,11 +11,32 @@
 .year-view-button-container {
     display: flex;
     width: 100%;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
 }
 
+
+
+
 svg {
-    fill: var(--calendar-header-background-color);
+    fill: var(--calendar-year-arrow-color);
     cursor: pointer;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+   
+    &:hover {
+        background-color: var(--calendar-grid-item-hover-background-color);
+    }
+
+    &:active {
+        background-color: var(--calendar-grid-item-active-background-color);
+    }
+}
+
+
+.date-range {
+    user-select: none;
+    font-weight: bold;
+    font-style: italic;
 }

@@ -55,6 +55,12 @@ export class DatePickerDirective implements ControlValueAccessor {
             originY: 'bottom',
             overlayX: 'start',
             overlayY: 'top'
+          },
+          {
+            originX: 'start',
+            originY: 'top',
+            overlayX: 'start',
+            overlayY: 'bottom'
           }
         ]),
       data: {
