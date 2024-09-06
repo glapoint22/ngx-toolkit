@@ -19,6 +19,7 @@ export * from './lib/components/panel/panel-header-title/panel-header-title.comp
 export * from './lib/components/panel/panel-header-actions/panel-header-actions.component';
 export * from './lib/components/panel/panel-content/panel-content.component';
 export * from './lib/components/data-grid/data-grid.component';
+export * from './lib/components/form-field-error/form-field-error.component';
 
 // Directives
 export * from './lib/directives/text-button/text-button.directive';

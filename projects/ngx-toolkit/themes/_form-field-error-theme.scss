@@ -1,0 +1,7 @@
+@use './utility';
+
+@mixin theme($theme) {
+    @include utility.theme-variables($theme, 'form-field-error', (
+        (variable-name: 'form-field-error-color', color-keys: (light: 40, dark: 80)),
+    ));
+}

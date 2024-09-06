@@ -14,7 +14,9 @@
     outline: none;
     max-width: 220px;
 
-    &.form-field-selected, &:focus {
+    &.form-field-selected,
+    &:focus {
+
         .left-notch-container,
         .center-notch-container,
         .right-notch-container,
@@ -22,9 +24,33 @@
             border-width: 2px;
             border-color: var(--form-field-selected-border-color);
         }
-    
+
         .form-field-label-container {
             color: var(--form-field-selected-label-color);
+        }
+    }
+}
+
+
+.form-field-error {
+    .left-notch-container,
+    .center-notch-container,
+    .right-notch-container,
+    .center-notch-container-top,
+    .form-field-label-container {
+        border-color: var(--form-field-error-color);
+        color: var(--form-field-error-color);
+    }
+
+    &.form-field-selected,
+    &:focus {
+        .left-notch-container,
+        .center-notch-container,
+        .right-notch-container,
+        .center-notch-container-top,
+        .form-field-label-container {
+            border-color: var(--form-field-error-color);
+            color: var(--form-field-error-color);
         }
     }
 }
@@ -100,7 +126,7 @@
     .right-notch-container {
         border-color: var(--form-field-disabled-border-color);
     }
-    
+
     .form-field-label-container {
         color: var(--form-field-disabled-label-color);
     }

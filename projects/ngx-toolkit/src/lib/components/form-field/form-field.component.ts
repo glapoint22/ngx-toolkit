@@ -8,6 +8,7 @@ import { ColorDirective } from '../../directives/color/color.directive';
 import { FormFieldLabelComponent } from '../form-field-label/form-field-label.component';
 import { FormFieldHintComponent } from '../form-field-hint/form-field-hint.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
+import { FormFieldErrorComponent } from '../form-field-error/form-field-error.component';
 
 @Component({
   selector: 'form-field',
@@ -21,6 +22,7 @@ export class FormFieldComponent implements OnInit {
   protected inputField = contentChild(InputFieldDirective);
   protected formFieldLabel = contentChild(FormFieldLabelComponent);
   protected formFieldHint = contentChild(FormFieldHintComponent);
+  protected formFieldError = contentChild(FormFieldErrorComponent);
   protected prefix = contentChild(PrefixDirective);
   protected suffix = contentChild(SuffixDirective);
   protected dropdown = contentChild(DropdownComponent);

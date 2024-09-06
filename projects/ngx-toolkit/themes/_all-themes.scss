@@ -17,6 +17,7 @@
 @use './stroked-button-theme' as stroked-button;
 @use './panel-theme' as panel;
 @use './data-grid-theme' as data-grid;
+@use './form-field-error-theme' as form-field-error;
 
 
 @mixin themes($theme) {
@@ -39,4 +40,5 @@
     @include stroked-button.theme($theme);
     @include panel.theme($theme);
     @include data-grid.theme($theme);
+    @include form-field-error.theme($theme);
 }
