@@ -29,8 +29,6 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
   private viewContainerRef = inject(ViewContainerRef);
   private isDropdownListOpen!: boolean;
   private renderer = inject(Renderer2);
-  private removeEscapeKeyListener!: () => void;
-  private removeMousewheelListener!: () => void;
   private removeKeydownListener!: () => void;
   private onChange!: (value: any) => void;
   private selectedDropdownItemIndex: number = -1;
@@ -41,7 +39,7 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
     this.dropdownItems().forEach(item => {
       item.onDropdownItemClick.subscribe((dropdownItem: DropdownItemComponent) => {
         this.setSelectedItem(dropdownItem);
-        this.closeList();
+        this.popupRef.close();
       });
     });
   }
@@ -51,7 +49,7 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
 
   public toggleList(): void {
     if (this.isDropdownListOpen) {
-      this.closeList();
+      this.popupRef.close();
     } else {
       this.openList();
       const dropdownItem: DropdownItemComponent = this.dropdownItems()[this.selectedDropdownItemIndex];
@@ -80,24 +78,18 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
   private openList(): void {
     this.popupRef = this.popupService.open(this.dropdownListTemplate()!, this.viewContainerRef, 
       {
-        positionStrategy: this.popupService.getFlexiblePositionStrategy(this.viewContainerRef.element.nativeElement.parentElement)
-        .withPositions([
-          {
-            originX: 'start',
-            originY: 'bottom',
-            overlayX: 'start',
-            overlayY: 'top',
-            offsetY: -1
-          }
-        ]),
-        width: this.viewContainerRef.element.nativeElement.parentElement.clientWidth + 'px'
+        origin: this.viewContainerRef.element.nativeElement.parentElement,
+        width: this.viewContainerRef.element.nativeElement.parentElement.clientWidth + 'px',
+        repositionOnScroll: true
       }
     );
 
     this.isDropdownListOpen = true;
 
-    this.removeEscapeKeyListener = this.renderer.listen('window', 'keydown.escape', () => this.closeList());
-    this.removeMousewheelListener = this.renderer.listen('window', 'mousewheel', () => this.closeList());
+    const onCloseSubscription = this.popupRef.onClose().subscribe(() => {
+      this.isDropdownListOpen = false;
+      onCloseSubscription.unsubscribe();
+    });
   }
 
 
@@ -130,7 +122,7 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
 
   public onBlur(): void {
     this.removeKeydownListener();
-    if (this.isDropdownListOpen) this.closeList();
+    if (this.isDropdownListOpen) this.popupRef.close();
 
   }
 
@@ -152,18 +144,6 @@ export class DropdownComponent implements AfterViewInit, ControlValueAccessor {
       }
     });
   }
-
-
-
-
-  private closeList(): void {
-    this.popupRef.close();
-    this.isDropdownListOpen = false;
-    this.removeEscapeKeyListener();
-    this.removeMousewheelListener();
-  }
-
-
 
 
   private getSelectedDropdownItemIndex(index: number): number {

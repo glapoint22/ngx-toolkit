@@ -22,7 +22,6 @@ export class DatePickerDirective implements ControlValueAccessor {
   private popupService = inject(PopupService);
   private removeWindowClickListener!: () => void;
   private removeElementRefClickListener!: () => void;
-  private removeEscapeKeyListener!: () => void;
   private onChange!: (value: Date) => void;
   protected onTouched!: () => void;
   private isCalendarOpen: boolean = false;
@@ -31,7 +30,7 @@ export class DatePickerDirective implements ControlValueAccessor {
 
   public async toggleCalendar(): Promise<void> {
     if (this.isCalendarOpen) {
-      this.closeCalendar();
+      this.popupRef.close();
       return;
     }
 
@@ -48,25 +47,18 @@ export class DatePickerDirective implements ControlValueAccessor {
     const { CalendarComponent } = await import('../components/calendar/calendar.component');
 
     this.popupRef = this.popupService.open(CalendarComponent, {
-      positionStrategy: this.popupService.getFlexiblePositionStrategy(this.elementRef.nativeElement.parentElement!)
-        .withPositions([
-          {
-            originX: 'start',
-            originY: 'bottom',
-            overlayX: 'start',
-            overlayY: 'top'
-          },
-          {
-            originX: 'start',
-            originY: 'top',
-            overlayX: 'start',
-            overlayY: 'bottom'
-          }
-        ]),
+      origin: this.elementRef.nativeElement.parentElement!,
       data: {
         color: this.color(),
         date: this.elementRef.nativeElement.value ? new Date(this.elementRef.nativeElement.value) : undefined
-      }
+      },
+      repositionOnScroll: true
+    });
+
+    const onCloseSubscription = this.popupRef.onClose().subscribe(() => {
+      this.removeListeners();
+      this.isCalendarOpen = false;
+      onCloseSubscription.unsubscribe();
     });
 
     this.isCalendarOpen = true;
@@ -76,28 +68,18 @@ export class DatePickerDirective implements ControlValueAccessor {
 
 
 
-  private closeCalendar(): void {
-    this.popupRef.close();
-    this.removeListeners();
-    this.isCalendarOpen = false;
-  }
-
-
-
-
   private onDateChange(date: Date): void {
     this.elementRef.nativeElement.value = this.formatDate(date);
     if (this.onChange) this.onChange(date);
-    this.closeCalendar();
+    this.popupRef.close();
   }
 
 
 
 
   private createListeners(): void {
-    this.removeWindowClickListener = this.renderer.listen('window', 'click', () => this.closeCalendar());
+    this.removeWindowClickListener = this.renderer.listen('window', 'click', () => this.popupRef.close());
     this.removeElementRefClickListener = this.renderer.listen(this.elementRef.nativeElement, 'click', (event: MouseEvent) => event.stopPropagation());
-    this.removeEscapeKeyListener = this.renderer.listen('window', 'keydown.escape', () => this.closeCalendar());
   }
 
 
@@ -106,7 +88,6 @@ export class DatePickerDirective implements ControlValueAccessor {
   private removeListeners(): void {
     this.removeWindowClickListener();
     this.removeElementRefClickListener();
-    this.removeEscapeKeyListener();
   }
 
 

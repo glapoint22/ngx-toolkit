@@ -120,7 +120,9 @@ export class MenuComponent implements AfterContentInit {
 
   private openMenu(origin: FlexibleConnectedPositionStrategyOrigin, positions: ConnectedPosition[]): void {
     this.popupRef = this.popupService.open(this.menuTemplate()!, this.viewContainerRef, {
-      positionStrategy: this.popupService.getFlexiblePositionStrategy(origin).withPositions(positions)
+      origin,
+      connectedPositions: positions,
+      disableClose: true
     });
 
     this.isOpen = true;

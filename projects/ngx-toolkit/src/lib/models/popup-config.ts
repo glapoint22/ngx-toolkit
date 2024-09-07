@@ -1,10 +1,10 @@
-import { Direction, Directionality } from "@angular/cdk/bidi";
-import { PositionStrategy, ScrollStrategy } from "@angular/cdk/overlay";
+import { ConnectedPosition, FlexibleConnectedPositionStrategyOrigin } from "@angular/cdk/overlay";
+import { GlobalPosition } from "./global-position";
 
 export interface PopupConfig {
-    positionStrategy?: PositionStrategy;
-    scrollStrategy?: ScrollStrategy;
-    panelClass?: string | string[];
+    origin?: FlexibleConnectedPositionStrategyOrigin;
+    connectedPositions?: ConnectedPosition[];
+    globalPosition?: GlobalPosition;
     hasBackdrop?: boolean;
     backdropClass?: string | string[];
     width?: number | string;
@@ -13,8 +13,10 @@ export interface PopupConfig {
     minHeight?: number | string;
     maxWidth?: number | string;
     maxHeight?: number | string;
-    direction?: Direction | Directionality;
     disposeOnNavigation?: boolean;
     disableClose?: boolean;
     data?: any;
+    closeOnScroll?: boolean;
+    blockScroll?: boolean;
+    repositionOnScroll?: boolean;
 }
