@@ -12,4 +12,6 @@
 @use './styles/menu';
 @use './styles/menu-bar-item';
 @use './styles/panel-header-action-button';
+@use './styles/panel-actions';
+@use './styles/data-grid-resizer-overlay';
 @use '@angular/cdk/overlay-prebuilt.css';

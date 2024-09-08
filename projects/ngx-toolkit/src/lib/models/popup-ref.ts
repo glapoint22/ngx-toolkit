@@ -6,11 +6,10 @@ import { PopupConfig } from "./popup-config";
 export class PopupRef<T> {
     public instance!: T;
     public componentRef!: ComponentRef<T> | null;
-    private _onClosed = new Subject<any>();
+    private _onClose = new Subject<any>();
     private _afterOpened = new Subject<void>();
     private _backdropClick = new Subject<MouseEvent>();
     private _keydownEvents = new Subject<KeyboardEvent>();
-    private result: any;
 
     constructor(private overlayRef: OverlayRef, private config?: PopupConfig) {
         setTimeout(() => {
@@ -30,20 +29,15 @@ export class PopupRef<T> {
             if (this.config?.disableClose || event.key !== 'Escape') return;
             this.close();
         });
-
-        this.overlayRef.detachments().subscribe(() => {
-            this.overlayRef.dispose();
-            this._onClosed.next(this.result);
-            this.result = null;
-        });
     }
 
 
 
 
     public close(result?: any): void {
+        this._onClose.next(result);
         this.overlayRef.detach();
-        this.result = result;
+        this.overlayRef.dispose();
     }
 
 
@@ -52,7 +46,7 @@ export class PopupRef<T> {
 
 
     public onClose(): Observable<any> {
-        return this._onClosed.asObservable();
+        return this._onClose.asObservable();
     }
 
 

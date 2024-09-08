@@ -18,6 +18,7 @@ export * from './lib/components/panel/panel-header/panel-header.component';
 export * from './lib/components/panel/panel-header-title/panel-header-title.component';
 export * from './lib/components/panel/panel-header-actions/panel-header-actions.component';
 export * from './lib/components/panel/panel-content/panel-content.component';
+export * from './lib/components/panel/panel-actions/panel-actions.component';
 export * from './lib/components/data-grid/data-grid.component';
 export * from './lib/components/form-field-error/form-field-error.component';
 

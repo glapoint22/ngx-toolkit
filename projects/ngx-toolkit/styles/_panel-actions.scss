@@ -1,0 +1,10 @@
+.panel-actions {
+    display: flex;
+    align-items: center;
+    justify-content: var(--panel-actions-alignment);
+    padding: 16px 24px;
+
+    .button+.button {
+        margin-left: 8px;
+    }
+}
