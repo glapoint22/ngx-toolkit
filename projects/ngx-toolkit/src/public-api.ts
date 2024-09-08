@@ -36,6 +36,8 @@ export * from './lib/directives/popup-close/popup-close.directive';
 
 // Services
 export * from './lib/services/popup/popup.service';
+export * from './lib/services/data/data.service';
+export * from './lib/services/auth/auth.service';
 
 // Types
 export * from './lib/types/color.type';
