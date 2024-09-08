@@ -14,7 +14,7 @@ export class AuthService {
   }
 
   public getToken(): string | null {
-    const token = this.token || localStorage.getItem('authToken');
+    const token = this.token || localStorage.getItem('token');
   
     if (token && !this.isTokenExpired(token)) {
       this.token = token;
@@ -26,14 +26,14 @@ export class AuthService {
 
 
   public setToken(token: string): void {
-    localStorage.setItem('authToken', token);
+    localStorage.setItem('token', token);
   }
 
 
 
 
   public clearToken(): void {
-    localStorage.removeItem('authToken');
+    localStorage.removeItem('token');
   }
 
 

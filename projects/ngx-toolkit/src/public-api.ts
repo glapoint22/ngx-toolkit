@@ -49,3 +49,6 @@ export * from './lib/types/popup-data';
 export * from './lib/models/popup-ref';
 export * from './lib/models/popup-config';
 export * from './lib/components/data-grid/models/col-def';
+
+// Interceptors
+export * from './lib/interceptors/auth/auth.interceptor';
