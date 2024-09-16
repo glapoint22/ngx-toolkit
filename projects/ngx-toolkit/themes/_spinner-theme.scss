@@ -1,0 +1,7 @@
+@use './utility';
+
+@mixin theme($theme) {
+    @include utility.theme-variables($theme, 'spinner', (
+        (variable-name: 'spinner-color', color-keys: (light: 40, dark: 80)),
+    ));
+}

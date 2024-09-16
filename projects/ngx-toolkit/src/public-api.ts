@@ -21,6 +21,7 @@ export * from './lib/components/panel/panel-content/panel-content.component';
 export * from './lib/components/panel/panel-actions/panel-actions.component';
 export * from './lib/components/data-grid/data-grid.component';
 export * from './lib/components/form-field-error/form-field-error.component';
+export * from './lib/components/spinner/spinner.component';
 
 // Directives
 export * from './lib/directives/text-button/text-button.directive';

@@ -18,6 +18,7 @@
 @use './panel-theme' as panel;
 @use './data-grid-theme' as data-grid;
 @use './form-field-error-theme' as form-field-error;
+@use './spinner-theme' as spinner;
 
 
 @mixin themes($theme) {
@@ -41,4 +42,5 @@
     @include panel.theme($theme);
     @include data-grid.theme($theme);
     @include form-field-error.theme($theme);
+    @include spinner.theme($theme);
 }
