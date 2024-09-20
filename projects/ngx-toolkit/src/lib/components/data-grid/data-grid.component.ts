@@ -1,14 +1,15 @@
-import { Component, ElementRef, inject, input, model, Renderer2, signal, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, input, model, Renderer2, signal, viewChild, ViewContainerRef } from '@angular/core';
 import { ColDef } from './models/col-def';
 import { CommonModule } from '@angular/common';
 import { ColorType } from '../../types/color.type';
 import { ColorDirective } from '../../directives/color/color.directive';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { DynamicComponentDirective } from '../../directives/dynamic-component/dynamic-component.directive';
 
 @Component({
   selector: 'data-grid',
   standalone: true,
-  imports: [CommonModule, ColorDirective, OverlayModule],
+  imports: [CommonModule, ColorDirective, OverlayModule, DynamicComponentDirective],
   templateUrl: './data-grid.component.html',
   styleUrl: './data-grid.component.scss'
 })

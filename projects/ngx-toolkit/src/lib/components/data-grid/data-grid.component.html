@@ -40,7 +40,12 @@
                 <div [style.width.px]="column.width" class="data-grid-column">
                     <div class="data-grid-cell">
                         <div class="data-grid-cell-value">
-                            {{row[column.field]}}
+                            @if (column.component) {
+                                <ng-template [dynamicComponent]="column.component"></ng-template>
+                            } @else {
+                                {{row[column.field]}}
+                            }
+                            
                         </div>
                     </div>
                 </div>
