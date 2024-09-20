@@ -27,7 +27,7 @@ export class DataGridComponent {
 
   onRowScroll(event: Event) {
     const scrollLeft = (event.target as HTMLElement).scrollLeft;
-    
+
     this.header()?.nativeElement.setAttribute('style', `left: -${scrollLeft}px`);
   }
 
@@ -82,5 +82,45 @@ export class DataGridComponent {
 
   protected onRowClick(row: any): void {
     this.selectdRow = row;
+  }
+
+
+  getComponentForCell(column: ColDef, row: any, params: any): any {
+    if (column.component) {
+      return { component: column.component, params: this.getParams(params, row, column) };
+    } else if (column.cellRendererSelector) {
+      // return column.cellRendererSelector({ rowData: row, column: column });
+      const selectedRenderer = column.cellRendererSelector({ rowData: row, column: column });
+      if (selectedRenderer) {
+        return {
+          component: selectedRenderer.component,
+          params: this.getParams(selectedRenderer.params, row, column)
+        };
+      }
+    }
+    return null;
+  }
+
+  private getParams(params: any, row: any, column: any): any {
+    if(params) {
+      return params;
+    }
+
+    return {
+      value: row[column.field],
+      rowData: row
+    }
+  }
+
+
+  public getCellStyle(column: ColDef, row: any): any {
+    if (column.cellStyle) {
+      if (typeof column.cellStyle === 'function') {
+        return column.cellStyle(this.getParams(null, row, column));
+      } else {
+        return column.cellStyle;
+      }
+    }
+    return null;
   }
 }

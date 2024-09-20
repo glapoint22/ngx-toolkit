@@ -38,14 +38,15 @@
                 <!-- Row Columns -->
                 @for (column of columnDefs(); track $index) {
                 <div [style.width.px]="column.width" class="data-grid-column">
-                    <div class="data-grid-cell">
+                    <div class="data-grid-cell" [style]="getCellStyle(column, row)">
                         <div class="data-grid-cell-value">
-                            @if (column.component) {
-                                <ng-template [dynamicComponent]="column.component"></ng-template>
-                            } @else {
-                                {{row[column.field]}}
-                            }
                             
+                            @if (getComponentForCell(column, row, column.cellRendererParams); as selectedComponent) {
+                                <ng-template [dynamicComponent]="selectedComponent"></ng-template>
+                            } @else {
+                                {{ row[column.field] }}
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -59,9 +60,6 @@
 </div>
 
 
-<ng-template cdkConnectedOverlay
-             [cdkConnectedOverlayOrigin]="dataGridBase"
-             [cdkConnectedOverlayHasBackdrop]="true"
-             [cdkConnectedOverlayOpen]="borderResizerActive()"
-             cdkConnectedOverlayBackdropClass="data-grid-resizer-overlay">
+<ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="dataGridBase" [cdkConnectedOverlayHasBackdrop]="true"
+    [cdkConnectedOverlayOpen]="borderResizerActive()" cdkConnectedOverlayBackdropClass="data-grid-resizer-overlay">
 </ng-template>
